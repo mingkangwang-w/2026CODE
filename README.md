@@ -304,4 +304,72 @@
 
 只要按这个顺序操作，团队协作会很顺畅。
 
-如果你们需要，我还可以继续帮你整理一份“适合比赛队伍的 VS Code Git 使用说明”，写成更短、更容易照着操作的版本。
+---
+
+## 十三、无法发布 branch 时怎么让 AI 帮你排查
+
+### 这次遇到的问题
+
+在 VS Code 中点击发布 branch，或者执行 `git push` 时失败，原因可能不是代码写错了，而是 Git 没有成功连接到 GitHub。
+
+这次排查到的典型报错是：
+
+```bash
+Failed to connect to github.com port 443
+Could not connect to server
+```
+
+这个报错说明：本地 Git 想连接 GitHub 的 443 端口，但是网络没有连通。
+
+### 应该怎么跟 AI 说
+
+遇到这个问题时，可以先直接问 AI：
+
+```text
+现在我无法发布branch，检查一下Git的代理配置
+```
+
+然后让 AI 帮你检查仓库状态、远程仓库地址和推送连接。AI 通常会依次检查：
+
+```bash
+git status --short --branch
+git branch -vv
+git remote -v
+git push --dry-run -u origin main
+```
+
+其中 `git push --dry-run` 是模拟推送，不会真的上传代码，适合用来判断问题出在哪里。
+
+### 如果是网络或代理问题
+
+AI 会读取当前电脑的系统代理设置。如果系统代理是 `127.0.0.1:7890`，可以让 Git 也使用这个代理：
+
+```bash
+git config --global http.proxy http://127.0.0.1:7890
+git config --global https.proxy http://127.0.0.1:7890
+```
+
+配置完成后，再让 AI 验证：
+
+```bash
+git push --dry-run -u origin main
+```
+
+如果看到类似结果：
+
+```bash
+Would set upstream of 'main' to 'main' of 'origin'
+* [new branch] main -> main
+```
+
+说明 Git 已经可以正常连接 GitHub。
+
+### 最后正式上传
+
+确认 dry-run 没有问题后，再执行真正的上传：
+
+```bash
+git push -u origin main
+```
+
+如果是在 VS Code 中操作，也可以重新点击发布 branch。
