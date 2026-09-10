@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" agent="drawio" version="24.0.0">
+  <diagram id="route" name="整体技术路线图">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="720" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="p1" value="问题1 预热平衡阶段&lt;br&gt;（附录2 常物性）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="190" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="问题2 整个烘干过程&lt;br&gt;（附录3 变物性）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="270" y="40" width="190" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="问题3 确定干燥时间&lt;br&gt;（水分浓度 &amp;lt;0.15）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="500" y="40" width="190" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" value="问题4 尺寸收缩干燥&lt;br&gt;（附录4+附件2）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="730" y="40" width="190" height="74" as="geometry" />
+        </mxCell>
+
+        <mxCell id="model" value="圆柱药材一维径向传热—传质耦合模型" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="184" width="500" height="52" as="geometry" />
+        </mxCell>
+
+        <mxCell id="heat" value="传热方程&lt;br&gt;ρcₚ∂T/∂t = (1/r)∂/∂r(r k ∂T/∂r)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="170" y="290" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mass" value="传质方程&lt;br&gt;∂C/∂t = (1/r)∂/∂r(r D ∂C/∂r)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="530" y="290" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="method" value="Crank–Nicolson 隐式有限差分（控制体积法）&lt;br&gt;固定点迭代耦合 + Python 数值求解" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="410" width="500" height="54" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r1" value="表1/表2 温度水分分布&lt;br&gt;result1.xlsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="190" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="表3/表4 3h内分布&lt;br&gt;result2.xlsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="520" width="190" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="表5 干燥时间&lt;br&gt;result3.xlsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="500" y="520" width="190" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="表6 收缩干燥&lt;br&gt;result4.xlsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="730" y="520" width="190" height="66" as="geometry" />
+        </mxCell>
+
+        <mxCell id="verif" value="结果验证：网格收敛性检验 + 灵敏度/SHAP 分析 + 误差分析" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="250" y="636" width="500" height="48" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#6C8EBF;" edge="1" parent="1" source="p1" target="model"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#6C8EBF;" edge="1" parent="1" source="p2" target="model"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#6C8EBF;" edge="1" parent="1" source="p3" target="model"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#6C8EBF;" edge="1" parent="1" source="p4" target="model"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#82B366;" edge="1" parent="1" source="model" target="heat"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#82B366;" edge="1" parent="1" source="model" target="mass"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#D6B656;" edge="1" parent="1" source="heat" target="method"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#D6B656;" edge="1" parent="1" source="mass" target="method"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#9673A6;" edge="1" parent="1" source="method" target="r1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#9673A6;" edge="1" parent="1" source="method" target="r2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#9673A6;" edge="1" parent="1" source="method" target="r3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#9673A6;" edge="1" parent="1" source="method" target="r4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#666666;" edge="1" parent="1" source="r1" target="verif"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#666666;" edge="1" parent="1" source="r4" target="verif"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

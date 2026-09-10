@@ -1,0 +1,48 @@
+\documentclass[border=4pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, positioning, decorations.pathmorphing}
+\usepackage{amsmath, amssymb}
+\usepackage[fontset=none]{ctex}
+\setCJKmainfont[AutoFakeBold]{SimSun}
+\begin{document}
+\begin{tikzpicture}[>=Stealth, line join=round]
+  % ================= 左侧：圆柱侧视图 =================
+  \begin{scope}
+    % 圆柱体
+    \draw[fill=blue!8, draw=blue!55!black, line width=0.9pt] (-0.45,-2) -- (6.0,-2) arc(-90:90:0.45 and 2) -- (-0.45,2) -- cycle;
+    \draw[blue!40!black, line width=0.6pt] (6.0,-2) arc(-90:90:0.45 and 2);
+    % 轴线（中心线）
+    \draw[dashed, gray] (-1.0,0) -- (6.9,0) node[right, black] {轴线};
+    % 径向坐标 r
+    \draw[->, thick] (1.6,0) -- (1.6,2.0) node[midway, right] {$r$};
+    \node[below] at (0.0,-2.0) {};
+    % 表面热流与水分流
+    \draw[->, very thick, red!75!black] (2.8,2.0) -- (2.8,3.1) node[above] {热流 $q$};
+    \draw[->, very thick, blue!75!black] (4.6,2.0) -- (4.6,3.1) node[above] {水分流 $j$};
+    % 尺寸标注
+    \draw[<->] (-0.45,-2.5) -- (6.0,-2.5) node[midway, below] {$L=25\ \mathrm{cm}$};
+    \draw[<->] (6.6,-2.0) -- (6.6,2.0) node[midway, right] {$R=2\ \mathrm{cm}$};
+    \node[blue!60!black, font=\small] at (2.7,-1.0) {药材};
+  \end{scope}
+
+  % ================= 右侧：横截面 =================
+  \begin{scope}[shift={(10.2,0)}]
+    \draw[fill=blue!8, draw=blue!55!black, line width=0.9pt] (0,0) circle (2);
+    \fill (0,0) circle (1.6pt) node[below left, font=\small] {$r=0$};
+    \draw[dashed, gray] (0,0) -- (2,0);
+    \draw[->, thick] (0,0) -- (1.5,1.32) node[midway, above left, font=\small] {$r$};
+    % 表面箭头（对流换热 outward）
+    \foreach \a in {45,135,225,315} {
+      \draw[->, thick, red!75!black] ({2*cos(\a)},{2*sin(\a)}) -- ({2.85*cos(\a)},{2.85*sin(\a)});
+    }
+    % 内部径向扩散示意
+    \draw[->, blue!60!black, thick] (0.7,0) -- (1.55,0);
+    \draw[->, blue!60!black, thick] (-0.5,-0.5) -- (-1.2,-1.2);
+    \node[blue!65!black, align=center, font=\small] at (0.1,-0.45) {水分\\扩散};
+    \node[red!70!black, align=center, font=\small] at (3.6,2.6) {对流换热\\ $h\,(T_s-T_{air})$};
+    \node[blue!65!black, align=center, font=\small] at (3.6,-2.8) {对流传质\\ $h_m\,(C_s-C_{air})$};
+    % 对称中心
+    \node[gray, font=\small] at (-2.4,2.4) {轴对称};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

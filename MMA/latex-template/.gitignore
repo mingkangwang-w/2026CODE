@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.ilg
+*.ind
+*.idx
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+
+# Temporary files
+*.bak
+*.tmp
+tmp-pdfcrop-*.tex
+
+# Root paper output; figure PDFs under texfile/figures/ are kept available.
+/document.pdf

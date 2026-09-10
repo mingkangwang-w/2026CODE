@@ -1,0 +1,30 @@
+\newpage
+\appendix
+\begin{center}
+	{\zihao{4}\bfseries 附录}
+\end{center}
+
+本文所有求解与绘图均由 Python 实现，核心代码文件如表~\ref{tab:appendix} 所示。结果文件 result1.xlsx--result4.xlsx 按附件 3 模板格式输出。
+
+\begin{table}[htbp]
+	\caption{附件说明表}
+	\label{tab:appendix}
+	\centering
+	\begin{tabular}{ll}
+		\toprule
+		文件 & 说明 \\
+		\midrule
+		code/common.py & 共享模块：数据加载、物性公式、Crank--Nicolson 隐式有限差分求解器 \\
+		code/problem1.py & 问题 1 求解（预热平衡阶段，附录 2） \\
+		code/problem2.py & 问题 2 求解（整个烘干过程，附录 3） \\
+		code/problem3.py & 问题 3 求解（干燥时间判据，附录 3） \\
+		code/problem4.py & 问题 4 求解（尺寸收缩移动边界，附录 4） \\
+		code/fig\_*.py & 论文全部数据图生成脚本 \\
+		data/result1.xlsx & 问题 1 结果（温度/水分浓度工作表，每 1 s、0.1 cm） \\
+		data/result2.xlsx & 问题 2 结果（温度/水分浓度工作表，每 1 s、0.1 cm） \\
+		data/result3.xlsx & 问题 3 结果（水分浓度，每 60 s、0.1 cm） \\
+		data/result4.xlsx & 问题 4 结果（水分浓度，每 60 s、0.1 cm） \\
+		texfile/figures/ & 论文插图（数据图、TikZ 物理图、DrawIO 技术路线图） \\
+		\bottomrule
+	\end{tabular}
+\end{table}
