@@ -1,0 +1,10 @@
+{
+  "T_max_err_vs_analytic": 0.005060237227446862,
+  "T_rms_err_vs_analytic": 0.003005547459418509,
+  "C_max_err_vs_analytic_constD": 0.041787064601252144,
+  "conservation_rel_resid": 1.576189433185691e-05,
+  "explicit_implicit_maxdiff_T": 0.005066615646654782,
+  "surf_C_1800": 1.5103658881960873,
+  "center_T_1800": 33.57120282018752,
+  "surf_T_1800": 36.78050011518571
+}
