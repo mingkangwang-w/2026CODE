@@ -1,0 +1,10 @@
+{
+ "static_cc": 8,
+ "n_claims": 8,
+ "n_implemented": 8,
+ "failures": [],
+ "counterexample_notes": [
+  "MC-04: 1 处命中位于反例通道 → ['solver.py:188 /eta\\\\s*\\\\*\\\\s*Rdot/ —— 位于 _add_pseudo_convection()，标注为反例/证伪通道，开关默认 False，置 True 处全在证伪探针内（problem_4.py:297(pseudo_convection_real_probe)、problem_4.py:602(main)）；实测该反例把守恒漂移从 0.0e+00 推到 1.3e-01，是有鉴别力的对照而非死代码']"
+ ],
+ "gate_parse_gap": "_utils/claim_code_check.py:120 正则不含 'BEGIN ' 前缀"
+}

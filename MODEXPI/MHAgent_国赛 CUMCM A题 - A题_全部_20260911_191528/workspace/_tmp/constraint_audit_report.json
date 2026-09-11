@@ -1,0 +1,221 @@
+{
+ "n_constraints": 30,
+ "n_pass": 27,
+ "n_fail": 0,
+ "n_deviation": 1,
+ "n_defer": 2,
+ "rows": [
+  {
+   "id": "B-01",
+   "name": "指数为分式",
+   "status": "PASS",
+   "detail": "exp(-0.89/ 存在=True；可执行码含 exp(-0.89*=False。注释中出现乘积形式反例文本（'非 exp(-0.89*C) 乘积'），已用 tokenize 去注释后判定",
+   "locations": []
+  },
+  {
+   "id": "B-02",
+   "name": "Arrhenius 用开尔文",
+   "status": "PASS",
+   "detail": "P2/P3/P4 T_K 区间 {2: [301.15, 323.116398], 3: [301.15, 323.189762], 4: [301.15, 323.199954]}（限 [273,400]）；问题1 用附录2 无 Arrhenius 项",
+   "locations": []
+  },
+  {
+   "id": "B-03",
+   "name": "物性不混用",
+   "status": "PASS",
+   "detail": "逐字 XOR('650+128')=True（物性集中在 params.py，两侧均无字面量）；语义判定：P3=附录3 变物、P4=附录4 变物、D4/D3=0.1856 != 1 → True",
+   "locations": []
+  },
+  {
+   "id": "B-04",
+   "name": "问题 1 常物性",
+   "status": "PASS",
+   "detail": "附录2 在 P1 实测区间上 ptp={'rho': 0.0, 'cp': 0.0, 'k': 0.0} 且 is_constant=<bound method PropertyGroup.is_constant of PropertyGroup(name='附录2', formula_note='D = 7e-9*exp(-0.89/C)', rho_const=820.0, rho_coef_C=0.0, cp_const=2600.0, cp_coef_frac=0.0, k_const=0.36, k_coef_frac=0.0, D_pre=7.000000000000001e-09, D_exp_C=-0.89, D_exp_T=0.0)>；反面对照 附录3 rho ptp=133.0733 > 0",
+   "locations": []
+  },
+  {
+   "id": "B-05",
+   "name": "终点判据用全域最大值",
+   "status": "PASS",
+   "detail": "P3 max_r C(t*)=0.149999（21 节点）；P4 max_r C(t*)=0.150000（81 节点）",
+   "locations": []
+  },
+  {
+   "id": "B-06",
+   "name": "Robin 通量残差",
+   "status": "DEVIATION",
+   "detail": "P1 rel_res_T=1.053e-06（限 1e-3）/rel_res_C=1.351e-03（限 1e-2）；P2 rel_res_T=5.430e-04（限 1e-3）/rel_res_C=6.538e-05（限 1e-2）；P3 rel_res_T=5.450e-04（限 1e-3）/rel_res_C=6.558e-05（限 1e-2），t* 绝对残差 1.20e-11 W/m²；P4 rel_res_T=1.213e-03（限 1e-3）/rel_res_C=1.271e-03（限 1e-2），t* 绝对残差 1.24e-12 W/m²。P4 偏离：实测收敛阶 1.75，按该阶外推需 N≈89（现 80）方满足逐字 1e-3；P4 源码声明容差 2e-3 并附收敛阶证据",
+   "locations": [
+    "P4 rel_res_T=1.213e-03 超逐字上界 1e-3"
+   ]
+  },
+  {
+   "id": "B-07",
+   "name": "无潜热汇项",
+   "status": "PASS",
+   "detail": "可执行码命中=无；含注释命中=无",
+   "locations": []
+  },
+  {
+   "id": "B-08",
+   "name": "四位小数",
+   "status": "PASS",
+   "detail": "result1: 75642 个非空单元格全量校验；result2: 453642 个非空单元格全量校验；result3: 72177 个非空单元格全量校验；result4: 41190 个非空单元格全量校验",
+   "locations": []
+  },
+  {
+   "id": "B-09",
+   "name": "中心零通量",
+   "status": "PASS",
+   "detail": "faces[0]=1.250000e-04 m = 0.5δ，共 80 个内界面（=N），r=0 无通量面 → flux_at_r0 = 0.0e+00（结构性恒零，非数值抵消）",
+   "locations": []
+  },
+  {
+   "id": "B-10",
+   "name": "物理界限",
+   "status": "PASS",
+   "detail": "P1 C∈[1.5104,2.5500] T∈[28.00,36.79]；P2 C∈[1.0081,2.5500] T∈[28.00,49.97]；P3 C∈[0.0526,2.5500] T∈[28.00,50.04]；P4 C∈[0.0526,2.5500] T∈[28.00,50.05]",
+   "locations": []
+  },
+  {
+   "id": "B-11",
+   "name": "C 沿 r 单调非增",
+   "status": "PASS",
+   "detail": "P1 max diff(C)=0.000e+00（181×21）；P2 max diff(C)=0.000e+00（181×21）；P3 max diff(C)=0.000e+00（59×21）；P4 max diff(C)=0.000e+00（206×21）",
+   "locations": []
+  },
+  {
+   "id": "B-12",
+   "name": "质量守恒残差",
+   "status": "PASS",
+   "detail": "P1 max eps_M=4.489e-13（Q>0 的 1800/1801 步），t=0 绝对残差=0.00e+00；P2 max eps_M=1.163e-12（Q>0 的 10800/10801 步），t=0 绝对残差=0.00e+00；P3 max eps_M=4.085e-14（Q>0 的 3437/3438 步），t=0 绝对残差=0.00e+00；P4 max eps_M=9.301e-14（Q>0 的 3062/3063 步），t=0 绝对残差=0.00e+00",
+   "locations": []
+  },
+  {
+   "id": "B-13",
+   "name": "无内部场拟合指标",
+   "status": "DEFER",
+   "detail": "逐字正则命中 3 处，逐处核对均非拟合指标（1/R² 几何因子、变量名 R2_half、需求编号 R2）：['fvkernel.py:7 R^2', 'fvkernel.py:186 R2', 'properties.py:16 R2']；PAPER.md 尚未生成（本阶段 comp-code），论文侧待 paper 阶段复核",
+   "locations": []
+  },
+  {
+   "id": "B-14",
+   "name": "R(t) 为时变输入",
+   "status": "PASS",
+   "detail": "R(0)=0.02000 m；附件2 全程 min R=0.01198 m（判据 0.01198）；到 t* 的序列 min=0.01200 m=R(t*)；diff<=0 全程成立=True",
+   "locations": []
+  },
+  {
+   "id": "B-15",
+   "name": "物质坐标无 Ṙ 项",
+   "status": "PASS",
+   "detail": "problem_4.py 命中=无；solver.py 反例通道命中=无（生产默认关闭=True）",
+   "locations": []
+  },
+  {
+   "id": "B-16",
+   "name": "构造性守恒",
+   "status": "PASS",
+   "detail": "物质坐标 M_end/M_ini-1=0.000e+00（限 1e-6）；伪对流反例 -1.304e-01（漂移 0.1304），对照有鉴别力=True",
+   "locations": []
+  },
+  {
+   "id": "B-17",
+   "name": "网格收敛",
+   "status": "PASS",
+   "detail": "N=40→80: 57.0168→57.2745 h，相对变化 0.4519%（限 1%）",
+   "locations": []
+  },
+  {
+   "id": "B-18",
+   "name": "显式格式稳定条件",
+   "status": "PASS",
+   "detail": "P1 dt_used=0.083279 s ≤ 0.9×0.166563=0.149907 s；P3 dt_used=0.097087 s ≤ 0.9×0.194196=0.174776 s（生产用向后 Euler，无条件稳定）",
+   "locations": []
+  },
+  {
+   "id": "B-19",
+   "name": "数值有限",
+   "status": "PASS",
+   "detail": "共 102746 个落盘数值全部有限（P1 14806 个值；P2 50806 个值；P3 16230 个值；P4 20904 个值）",
+   "locations": []
+  },
+  {
+   "id": "B-20",
+   "name": "t* 经插值细化",
+   "status": "PASS",
+   "detail": "P3 t*=206188.068403 s，mod 60 = 28.068403 s；P4 t*=183759.748496 s，mod 60 = 39.748496 s",
+   "locations": []
+  },
+  {
+   "id": "B-21",
+   "name": "t* 落在物理区间",
+   "status": "PASS",
+   "detail": "P3 t*=57.2745 h；P4 t*=51.0444 h（限 20~200 h）",
+   "locations": []
+  },
+  {
+   "id": "B-22",
+   "name": "环境延拓为平台常值",
+   "status": "PASS",
+   "detail": "T_inf(2e5)=49.998934（偏差 3.443e-05<1e-3）、C_inf(2e5)=0.04998754（偏差 2.459e-06<1e-5）；t=3e5 s 同值=True",
+   "locations": []
+  },
+  {
+   "id": "B-23",
+   "name": "表 1/2 时刻非等间隔",
+   "status": "PASS",
+   "detail": "表1/表2 行标签 = [100, 300, 600, 900, 1200, 1500, 1800]，与判据一致；间隔集合 [200.0, 300.0] 非单一值 → 确为非等间隔",
+   "locations": []
+  },
+  {
+   "id": "B-24",
+   "name": "表 3/4 单位 h、xlsx 单位 s",
+   "status": "PASS",
+   "detail": "表3 行标签(h) = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0]；result2.xlsx A 列第 2 个时间值 = 1 s （步长 1 s，论文用 h、xlsx 用 s）",
+   "locations": []
+  },
+  {
+   "id": "B-25",
+   "name": "表 5 末行为烘干结束时间",
+   "status": "PASS",
+   "detail": "末行 label='烘干结束时间'、t_h=57.274463 vs t*=57.274500（偏差 3.70e-05）；整点行 9 行 = floor(t*/6)=9",
+   "locations": []
+  },
+  {
+   "id": "B-26",
+   "name": "表 6 末列为药材表面",
+   "status": "PASS",
+   "detail": "末列表头='药材表面'；9 行的surface_radius_cm 与附件2 的 R(t_row) 逐行一致（限 1e-6 m）",
+   "locations": []
+  },
+  {
+   "id": "B-27",
+   "name": "域外列留空",
+   "status": "PASS",
+   "detail": "18 个域外单元格全为空、27 个域内单元格全非空（双向判定）",
+   "locations": []
+  },
+  {
+   "id": "B-28",
+   "name": "工作表结构",
+   "status": "PASS",
+   "detail": "工作表名实测 {'result1': ['温度', '水分浓度'], 'result2': ['温度', '水分浓度'], 'result3': ['Sheet1'], 'result4': ['Sheet1']}",
+   "locations": []
+  },
+  {
+   "id": "B-29",
+   "name": "输出网格步长",
+   "status": "PASS",
+   "detail": "result1: dt_out=1s、dr_out=0.1cm；result2: dt_out=1s、dr_out=0.1cm；result3: dt_out=60s、dr_out=0.1cm；result4: dt_out=60s、dr_out=0.1cm",
+   "locations": []
+  },
+  {
+   "id": "B-30",
+   "name": "一维假设有量化依据",
+   "status": "DEFER",
+   "detail": "MODELING_REPORT.md 含 '6.2500'=True、'erfc'=True；PAPER.md 尚未生成，论文正文侧待 paper 阶段复核",
+   "locations": []
+  }
+ ]
+}

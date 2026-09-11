@@ -1,0 +1,194 @@
+{
+  "problem_id": "2026A",
+  "problem_title": "药材的烘干问题",
+  "n_subproblems": 4,
+  "_meta": {
+    "generated_by": "comp-prob-analysis",
+    "analysis_file": "PROBLEM_ANALYSIS.md",
+    "facts_file": "PROBLEM_FACTS.json",
+    "deliver_sentences_total": 18,
+    "note": "决策/目标/机制类句子共 18 句(S2,S8,S9,S10,S13,S14,S16,S17,S19,S20,S21,S22,S23,S24,S25,S29,S30,S31)，全部被 source_sentence 认领"
+  },
+  "capabilities": [
+    {
+      "id": "P1-C1",
+      "subproblem": 1,
+      "name": "预热平衡阶段热-质双场耦合 PDE 求解（常物性 + D(C)）",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "source_sentence": "S8, S29",
+      "criterion": "在 r 属于 [0,0.02] m、t 属于 [0,1800] s 上求得二维场 T(r,t) 与 C(r,t)；能量方程用附录 2 常物性 rho=820、cp=2600、k=0.36，质量方程扩散系数 D=7e-9*exp(-0.89/C)；两端边界为中心零通量与表面 Robin(h=25, hm=8e-7)，环境值取附件 1 插值。",
+      "falsifiable_check": "断言：(a) 源码中 D 的实现为 7e-9*exp(-0.89/C) 形式（分数指数），若出现 exp(-0.89*C) 乘积形式则判不成立；(b) 问题 1 的 rho/cp/k 为标量常数 820/2600/0.36，若引用附录 3/4 的 C 依赖公式则判不成立；(c) 表面通量残差 abs(-k*dTdr_R - h*(T_R-T_inf)) / (h*abs(T_R-T_inf)+1e-12) 小于 1e-3 且质量侧同理，若表面被写成 Dirichlet(T_R=T_inf 或 C_R=C_inf) 则判不成立；(d) 全场 np.isfinite 且 0<=C<=2.55、27<=T<=max(T_inf)+1，中心处 dCdr 与 dTdr 数值为 0（对称），越界即 raise。",
+      "hard_constraints": ["HC-01", "HC-03", "HC-06", "HC-07", "HC-08", "HC-12"]
+    },
+    {
+      "id": "P1-C2",
+      "subproblem": 1,
+      "name": "问题 1 论文表 1 / 表 2（指定非等间隔时刻 乘 5 个径向位置）",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "source_sentence": "S9",
+      "criterion": "论文中给出两张 7 行 5 列表：时刻集合 {100,300,600,900,1200,1500,1800} s，径向位置 {0,0.5,1,1.5,2} cm，分别为温度(摄氏度)与水分浓度(kg/kg)。",
+      "falsifiable_check": "断言：表格行标签集合与 {100,300,600,900,1200,1500,1800} 逐元素相等（注意首间隔 200 s 非等间隔，若被写成 {300,600,...,2100} 等间隔序列则判不成立），列标签集合与 {0,0.5,1,1.5,2} 相等，且两表数值取自 P1-C1 的同一次求解结果（与完整场在对应网格点上逐点一致，容差 1e-4）；否则 raise。",
+      "hard_constraints": ["HC-17"]
+    },
+    {
+      "id": "P1-C3",
+      "subproblem": 1,
+      "name": "问题 1 完整结果交付 result1.xlsx（双工作表 1801 行 21 列）",
+      "judge": "machine",
+      "machine_check": "delivery",
+      "source_sentence": "S10",
+      "required_output": "output/result1.xlsx",
+      "criterion": "result1.xlsx 含温度、水分浓度两个工作表；A 列为时间 0 到 1800 步长 1 s（1801 行），第 1 行为到中心距离 0 到 2 步长 0.1 cm（21 列）；数值保留 4 位小数。",
+      "hard_constraints": ["HC-15", "HC-16"]
+    },
+    {
+      "id": "P1-C4",
+      "subproblem": 1,
+      "name": "全局交付规范：四位小数与模板结构一致性",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "criterion": "result1 到 result4.xlsx 的工作表名、A 列时间步长、第 1 行距离步长与附件 3 模板完全一致；所有数值保留 4 位小数。",
+      "falsifiable_check": "断言：逐文件比对工作表名列表与模板一致（result1/2 为 温度 与 水分浓度 两表，result3/4 为单表）；抽样 200 个单元格，其字符串形式小数位恰为 4；result1/2 时间步长=1 s、result3/4 时间步长=60 s，距离步长均=0.1 cm。任一项不符即 raise；不得以显示层四舍五入替代实际写盘取整。",
+      "hard_constraints": ["HC-15", "HC-16"]
+    },
+    {
+      "id": "P2-C1",
+      "subproblem": 2,
+      "name": "全过程变物性双向强耦合模型（附录 3）",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "source_sentence": "S14, S30",
+      "criterion": "建立覆盖整个烘干过程（数十小时量级）的耦合模型：rho=650+128C、cp=1450+2736*C/(C+1)、k=0.21+0.38*C/(C+1)、D=2.4e-3*exp(-0.45/C)*exp(-3850/T)，T 取开尔文；能量与质量方程互为系数来源，用守恒型通量离散。",
+      "falsifiable_check": "断言：(a) 计算 D 前存在 T+273.15 换算且运行时 273<=T_K<=400，若直接以摄氏值代入 exp(-3850/T) 则判不成立；(b) rho/cp/k 在每个时间步按当前 C 场逐节点更新，若被固定为初值物性（数组方差为 0）则判不成立；(c) 求解器在不修改代码结构的前提下可推进到 t 大于 1e5 s（被问题 3 复用），若模型只在 t<=3 h 内定义（如硬编码 t_end=10800）则判不成立——题面要求模型覆盖整个过程、仅输出截取 3 h；(d) 界面物性用平均值构造通量，关闭守恒型格式时质量守恒残差显著变差。",
+      "hard_constraints": ["HC-02", "HC-04"]
+    },
+    {
+      "id": "P2-C2",
+      "subproblem": 2,
+      "name": "预热平衡与恒温干燥两阶段的识别与参数切换",
+      "judge": "semantic",
+      "source_sentence": "S2, S13",
+      "criterion": "模型体现两阶段差异：预热平衡段由附件 1 的升温曲线驱动，恒温干燥段由平台环境值驱动；论文明确给出阶段分界依据与 t 大于 14400 s 的延拓处理。",
+      "falsifiable_check": "断言：(a) 边界驱动函数在 t<=14400 s 取附件 1 线性插值、t 大于 14400 s 取平台常值 T_inf=49.9989 摄氏度 与 C_inf=0.04999 kg/kg，若 t 大于 14400 s 时边界无定义/报错/外推为线性趋势则判不成立；(b) 论文中出现两阶段分界的量化依据（平台起点 t>=10800 s，T_inf 波动正负 0.153 摄氏度、C_inf 波动正负 0.00015 kg/kg），若只写分为两阶段而无数据依据则判不成立；(c) 两阶段不得用两套不同的 PDE 拼接——控制方程形式必须唯一，差异只体现在边界驱动上。",
+      "hard_constraints": ["HC-21"]
+    },
+    {
+      "id": "P2-C3",
+      "subproblem": 2,
+      "name": "问题 2 论文表 3 / 表 4（3 h 内 0.5 h 步长 乘 5 个径向位置）",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "source_sentence": "S16",
+      "criterion": "论文给出两张 6 行 5 列表：时间 {0.5,1.0,1.5,2.0,2.5,3.0} h，径向位置 {0,0.5,1,1.5,2} cm，分别为温度与水分浓度。",
+      "falsifiable_check": "断言：表头时间单位为 h 且行标签等于 {0.5,1.0,1.5,2.0,2.5,3.0}，而 result2.xlsx 的 A 列为秒（1800,3600,...）；若论文表与 xlsx 单位混用（如论文表写 1800 h 或 xlsx 写 0.5）则判不成立。数值须与 P2-C1 同一次求解在对应时刻 t=1800k s 一致，容差 1e-4。",
+      "hard_constraints": ["HC-18"]
+    },
+    {
+      "id": "P2-C4",
+      "subproblem": 2,
+      "name": "问题 2 完整结果交付 result2.xlsx（双工作表，1 s 步长）",
+      "judge": "machine",
+      "machine_check": "delivery",
+      "source_sentence": "S17",
+      "required_output": "output/result2.xlsx",
+      "criterion": "result2.xlsx 含温度、水分浓度两个工作表；A 列为时间（单位 s，步长 1），第 1 行为距离 0 到 2 步长 0.1 cm；数值保留 4 位小数。",
+      "hard_constraints": ["HC-15", "HC-16", "HC-18"]
+    },
+    {
+      "id": "P3-C1",
+      "subproblem": 3,
+      "name": "烘干终点判定与总时长 t_star（逐点判据 max_r C 小于 0.15）",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "source_sentence": "S19",
+      "criterion": "以 max_r C(r,t) 小于 0.15 kg/kg 为首次达标判据，求出烘干所需时间 t_star，以 h 为单位报出并保留 4 位小数；t_star 需用线性插值细化到优于输出步长。",
+      "falsifiable_check": "断言：(a) 判定代码为 C.max() < 0.15，若使用 C.mean() 或表面值 C[-1] 作为终点判据则判不成立；(b) 报出的 t_star 不等于 60 s 网格点的整数倍（存在插值细化），且在 t_star 时刻 max_r C 与 0.15 的偏差小于 1e-4；(c) 由于 C 沿 r 单调非增，断言 argmax_r C 等于 0（中心控制），若中心不是最湿点说明格式有误则 raise；(d) t_star 落在 20 到 200 h 的物理合理区间且与题面 2-3 天 量级一致，若得出小于 5 h 或大于 30 天则判不成立。",
+      "hard_constraints": ["HC-05", "HC-12", "HC-23"]
+    },
+    {
+      "id": "P3-C2",
+      "subproblem": 3,
+      "name": "问题 3 论文表 5（每 6 h 加末行烘干结束时间）",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "source_sentence": "S20",
+      "criterion": "表 5 行为 6,12,18 直至 t_star，末行标签为烘干结束时间并对应 t_star；列为径向位置 {0,0.5,1,1.5,2} cm 的水分浓度。",
+      "falsifiable_check": "断言：表 5 最后一行标签含 烘干结束 且其时间值等于 P3-C1 报出的 t_star；整点行数量等于 floor(t_star/6)，若预设固定行数或省略烘干结束时间行则判不成立；末行各列数值均小于 0.15，否则与判据矛盾即 raise。",
+      "hard_constraints": ["HC-19"]
+    },
+    {
+      "id": "P3-C3",
+      "subproblem": 3,
+      "name": "问题 3 完整结果交付 result3.xlsx（单表，60 s 步长）",
+      "judge": "machine",
+      "machine_check": "delivery",
+      "source_sentence": "S21",
+      "required_output": "output/result3.xlsx",
+      "criterion": "result3.xlsx 单工作表保存水分浓度；A 列为时间（单位 s，步长 60，覆盖 0 至 t_star），第 1 行为距离 0 到 2 步长 0.1 cm；数值保留 4 位小数。",
+      "hard_constraints": ["HC-15", "HC-16"]
+    },
+    {
+      "id": "P3-C4",
+      "subproblem": 3,
+      "name": "长时程数值可靠性：稳定性、守恒与网格收敛",
+      "judge": "machine",
+      "machine_check": "custom",
+      "criterion": "长时程（约 2e5 s）求解无溢出无非物理振荡；水分质量守恒相对误差小于 1%；空间与时间步长各减半后 t_star 相对变化小于 1%。",
+      "falsifiable_check": "断言：(a) np.isfinite(C).all() 且 np.isfinite(T).all()，显式格式下 dt <= 0.9*min(dr^2/(2*D_max), dr^2/(2*alpha_max))；(b) 累计表面流出水分（对 2*pi*R*L*hm*(C_R-C_inf) 关于时间积分）与域内水分总量减少量的相对误差小于 1%，并在论文中报出该数值——若论文未报出守恒残差数值则判不成立；(c) 加密网格(dr/2, dt/2)重跑后 abs(t_fine - t_coarse)/t_coarse 小于 1%，且论文给出该收敛表。任一项不满足即 raise。",
+      "hard_constraints": ["HC-11", "HC-13", "HC-24"]
+    },
+    {
+      "id": "P4-C1",
+      "subproblem": 4,
+      "name": "收缩动边界模型与问题 4 烘干时长（附件 2 的 R(t) 加 附录 4 物性）",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "source_sentence": "S22, S23, S31",
+      "criterion": "求解域上界为附件 2 给定的时变半径 R(t)（2.000 降至 1.198 cm）；物性用附录 4：rho=760+90C、cp=1850+2150*C/(C+1)、k=0.12+0.20*C/(C+1)、D=4.2e-4*exp(-0.30/C)*exp(-3850/T)（T 为 K）；用 eta=r/R(t) 变换求解并报出烘干时长（h）。",
+      "falsifiable_check": "断言：(a) 代码从附件 2 构造 R(t) 插值器，断言 R(0)=0.02 m、R 单调非增、min R=0.01198 m；若域上界为常数 0.02 则收缩效应缺失，判不成立；(b) 物性使用 760+90*C（附录 4），若出现 650+128*C（附录 3）则判混用不成立；(c) eta 坐标方程保留伪对流项 (eta*Rdot/R)*dC/deta——关闭该项后水分质量守恒残差至少变差一个量级，用该对照证明该项在起作用，缺项则判不成立；(d) 报出 t_star_Q4 且论文解释其与 t_star_Q3 的方向差异（附录 4 的 D 更小 对比 收缩使扩散特征时间正比于 R^2 缩短至约 36%），若只给数值不给方向性解释则判不成立。",
+      "hard_constraints": ["HC-02", "HC-04", "HC-09", "HC-10", "HC-11", "HC-23"]
+    },
+    {
+      "id": "P4-C2",
+      "subproblem": 4,
+      "name": "问题 4 论文表 6（末列为随时间移动的药材表面）",
+      "judge": "machine",
+      "machine_check": "constraint",
+      "source_sentence": "S24",
+      "criterion": "表 6 行为 6,12,18 直至烘干结束时间，列为 0,0.5 等距直至药材表面；表面列对应 r=R(t) 而非固定 2 cm。",
+      "falsifiable_check": "断言：表 6 表头末列文字为 药材表面，其数值取自 eta=1 且对应半径等于该时刻 R(t)（与附件 2 一致，容差 1e-4 cm）；若末列被写成固定 2 cm 或末列半径不随行变化则判不成立；固定距离列在超出当前 R(t) 后必须留空或截断，不得给出域外数值。末行标签含 烘干结束。",
+      "hard_constraints": ["HC-19", "HC-20"]
+    },
+    {
+      "id": "P4-C3",
+      "subproblem": 4,
+      "name": "问题 4 完整结果交付 result4.xlsx（单表，60 s 步长）",
+      "judge": "machine",
+      "machine_check": "delivery",
+      "source_sentence": "S25",
+      "required_output": "output/result4.xlsx",
+      "criterion": "result4.xlsx 单工作表保存收缩域上的水分浓度；A 列为时间（单位 s，步长 60），第 1 行为距离 0 到 2 步长 0.1 cm，超出当前 R(t) 的列按域外处理；数值保留 4 位小数。",
+      "hard_constraints": ["HC-15", "HC-16", "HC-20"]
+    },
+    {
+      "id": "P4-C4",
+      "subproblem": 4,
+      "name": "收缩假设的守恒一致性验证（附件 2 独立校验通道）",
+      "judge": "semantic",
+      "criterion": "以绝干质量守恒 V/V0 = ((1+C)/rho(C)) / ((1+C0)/rho(C0)) 正向预测半径，与附件 2 实测半径比对，论证仅径向收缩加附录 4 密度这一假设的数据依据。",
+      "falsifiable_check": "断言：(a) 报出三种假设组合与附件 2 的平均相对偏差，且附录 4 密度加仅径向收缩组合最优（约 3.29%，优于附录 3 密度约 10.73% 与各向同性收缩约 21.22%）；若只声称假设成立而无定量对照则判不成立；(b) 该校验为正向预测（由 C 预测 R）而非反演（由 R 反解 C）——反演在 rho 线性形式下会给出非物理负含水率，若代码走反演路径并输出 C 小于 0 则 raise；(c) 严禁把附件 2 半径当作待求量用收缩本构替代，代码必须直接读取附件 2 数据作为 R(t)。",
+      "hard_constraints": ["HC-09"]
+    },
+    {
+      "id": "GL-C1",
+      "subproblem": 1,
+      "name": "验证章节的诚实性：禁止编造内部场拟合误差",
+      "judge": "semantic",
+      "criterion": "题目未提供药材内部温度与含水率实测值（DATA_FACTS.json 中 has_data=false），验证章节只允许机理自洽、质量守恒、网格收敛、外部锚点四类证据。",
+      "falsifiable_check": "断言：论文与代码中不存在针对内部 T(r,t)/C(r,t) 的 RMSE/MAPE/R2 等与真值比对指标（正则扫描章节文本与源码变量名）；若出现此类指标必须能指出真值数据来源，指不出即判编造并 raise。允许的四类证据须至少出现三类，且各自带有可复现的数值（守恒残差、收敛表、t_star 与题面 2-3 天 及附件 2 的 67.0 h 半径平台的对照）。",
+      "hard_constraints": ["HC-14"]
+    }
+  ]
+}

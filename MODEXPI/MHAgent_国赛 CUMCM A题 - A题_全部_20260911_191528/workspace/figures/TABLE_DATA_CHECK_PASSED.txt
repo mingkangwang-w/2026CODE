@@ -1,0 +1,35 @@
+TABLE_DATA_CHECK_PASSED
+日期：2026-09-11
+范围：figures/TABLE_main_results.md、TABLE_descriptive_stats.md、
+      TABLE_validation.md、TABLE_sensitivity.md（表 7~表 10）
+
+核对方式：表格由 figures/gen_tables.py 从来源字段现算生成，不手写数值；
+再以独立脚本重算 25 个代表性单元格并与表内字符串比对，全部一致（0 失败）。
+
+逐表来源
+  表 7 四问主结果      figures/all_results.json → answers.problem_{1..4}
+  表 8 输入描述统计    user_data/附件1.xlsx（241 行）、附件2.xlsx（145 行）
+                       统计量为独立重算的 min/max/mean/样本标准差(n-1)
+  表 9 模型校验        problem_{1..4}_results.json → mass_balance.eps_M / Q，
+                       problem_1 → analytic_validation，
+                       problem_3 → grid_convergence、stability_probe、
+                       characteristic_times
+  表 10 参数敏感性     sensitivity_results.json → main_group.rows 与
+                       ranking_by_abs_rel_max
+
+两处口径说明（已写入表注，避免误读）
+  1) eps_M = |(C0-M)-Q| / max(Q,1e-30)。t=0 时 Q=0 使相对残差无定义（JSON 中
+     该点为 ~1e14 的伪值），统计时已剔除 Q=0 的首个采样点。剔除后四问最大残差
+     为 4.09e-14 ~ 1.16e-12，处于机器精度量级。
+  2) 敏感性算例用 20 单元 / dt=20 s 的粗网格，基准 t*=56.4950 h，与表 7 的
+     57.2745 h（80 单元 / dt=5 s）不同源，故不可混用；表注已标明。
+
+编号约定
+  表 1~表 6 为题目要求的答案表（paper_tables 的 table1..table6，对应能力项
+  P1-C2 / P2-C3 / P3-C2 / P4-C2），本阶段新增表从表 7 起编，避免编号冲突。
+
+二次独立复核（2026-09-11，TABLE-CHECK MODE 第 1/1 轮）
+  重新逐表打开 4 个 TABLE 文件，直接 json.load / pd.read_excel 复算全部数据
+  单元格：表 7 共 16 项、表 8 共 18 项、表 9 共 13 项、表 10 共 30 项，全部一致，
+  0 处编造。明细见 TABLE_DATA_CHECK_REPORT.md。
+  本轮未触碰任何图片文件、画图脚本、latex_includes.tex 与 JSON。

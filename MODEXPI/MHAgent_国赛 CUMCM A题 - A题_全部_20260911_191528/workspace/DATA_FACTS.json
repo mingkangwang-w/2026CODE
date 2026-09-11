@@ -1,0 +1,161 @@
+{
+  "_meta": {
+    "stage": "comp-prob-analysis",
+    "files": [
+      {
+        "path": "user_data/附件1.xlsx",
+        "sha256": "7ef32870abeef420b89560b2530ff60dfe4255917805151d89988d0311af9dd7",
+        "rows": 241,
+        "sheets": 1
+      },
+      {
+        "path": "user_data/附件2.xlsx",
+        "sha256": "5563acbfa4b4afb10cc6c03e2207e5369bf39da27576672aff14cc5c32e704af",
+        "rows": 145,
+        "sheets": 1
+      }
+    ],
+    "note": "只登记附件内客观可查事实；行数/sheet 数以 DATA_PROFILE.json 为权威基准"
+  },
+  "variables": [
+    {
+      "name": "附件1.时间",
+      "role": "observed",
+      "unit": "s",
+      "range": [
+        0.0,
+        14400.0
+      ],
+      "granularity": "minute",
+      "n": 241,
+      "step_s": 60.0,
+      "censored": {
+        "kind": "none",
+        "at": null
+      },
+      "has_data": true,
+      "note": "等间隔 60 s，共 241 点，覆盖 0—14400 s（4 h），无缺失"
+    },
+    {
+      "name": "附件1.温度 T_inf(t) 烘房温度",
+      "role": "observed",
+      "unit": "°C",
+      "range": [
+        28.0,
+        50.246
+      ],
+      "granularity": "minute",
+      "censored": {
+        "kind": "none",
+        "at": null
+      },
+      "has_data": true,
+      "plateau_mean_after_10800s": 49.998934426229496,
+      "plateau_std_after_10800s": 0.15308294856940663,
+      "note": "28.000 单调升至约 50 °C 后在 50 附近小幅波动（含测量噪声，最大 50.246）；t>=7200 s 后 std=0.164，已进入恒温段"
+    },
+    {
+      "name": "附件1.水分浓度 C_inf(t) 烘房空气湿度",
+      "role": "observed",
+      "unit": "kg/kg",
+      "range": [
+        0.01963,
+        0.05025
+      ],
+      "granularity": "minute",
+      "censored": {
+        "kind": "none",
+        "at": null
+      },
+      "has_data": true,
+      "plateau_mean_after_10800s": 0.049987540983606554,
+      "plateau_std_after_10800s": 0.00014889379797171639,
+      "note": "0.01963 升至约 0.0499 后平台化；数量级远低于药材初始 2.55 kg/kg，是传质推动力的汇端浓度"
+    },
+    {
+      "name": "附件2.时间",
+      "role": "observed",
+      "unit": "s",
+      "range": [
+        0.0,
+        259200.0
+      ],
+      "granularity": "half_hour",
+      "n": 145,
+      "step_s": 1800.0,
+      "censored": {
+        "kind": "none",
+        "at": null
+      },
+      "has_data": true,
+      "note": "等间隔 1800 s，共 145 点，覆盖 0—259200 s（72 h），无缺失"
+    },
+    {
+      "name": "附件2.半径 R(t) 药材半径",
+      "role": "observed",
+      "unit": "cm",
+      "range": [
+        1.198,
+        2.0
+      ],
+      "granularity": "half_hour",
+      "censored": {
+        "kind": "none",
+        "at": null
+      },
+      "has_data": true,
+      "monotone_nonincreasing": true,
+      "R_start": 2.0,
+      "R_end": 1.198,
+      "last_change_time_s": 241200.0,
+      "note": "2.000 单调非增至 1.198 cm；最后一次变化在 t=241200 s(67.0 h)，此后至 72 h 恒定；前 6 h 收缩最快(2.000→1.374)，24 h 后仅从 1.204 缓变到 1.198，共 92 个相邻不变段（0.001 cm 记录精度所致）"
+    },
+    {
+      "name": "药材内部温度场 T(r,t)",
+      "role": "assumed",
+      "unit": "°C",
+      "range": [
+        null,
+        null
+      ],
+      "granularity": "mean_only",
+      "censored": {
+        "kind": "none",
+        "at": null
+      },
+      "has_data": false,
+      "note": "题目要求的输出量，附件未提供任何内部实测值 → 无法做逐点误差验证，只能靠机理模型+守恒/收敛/自洽性交叉校核"
+    },
+    {
+      "name": "药材内部水分浓度场 C(r,t)",
+      "role": "assumed",
+      "unit": "kg/kg",
+      "range": [
+        null,
+        null
+      ],
+      "granularity": "mean_only",
+      "censored": {
+        "kind": "none",
+        "at": null
+      },
+      "has_data": false,
+      "note": "同上；唯一间接实测约束是附件2 的 R(t)（经干物质守恒可反演平均含水率），这是问题4 可做的关键校验"
+    }
+  ],
+  "derived_checks": [
+    {
+      "name": "收缩数据与干物质守恒+附录4 密度的一致性",
+      "method": "V/V0=[(1+C)/rho(C)]/[(1+C0)/rho(C0)]，rho=760+90C，仅径向收缩（L 固定）",
+      "result": "取终态平均含水率 0.05 时预测 R_end=1.2375 cm，附件2 实测 1.198 cm，相对误差 3.29%",
+      "contrast": "若改用附录3 密度(650+128C) 预测 1.3266 cm，误差 10.73%；若假设各向同性收缩预测 1.4522 cm，误差 21.22%",
+      "conclusion": "附件2 的收缩数据与「附录4 密度 + 干物质守恒 + 仅径向收缩」三者自洽，佐证题面把附录4 指派给问题4 的合理性，也支持问题4 采用仅径向收缩假设"
+    },
+    {
+      "name": "分式读法的时间尺度佐证",
+      "method": "以附录3 公式、R 固定 2 cm、烘房恒温段边界，显式格式粗网格试算至全域 C<0.15",
+      "result": "分式读法 exp(-0.45/C) 得约 57 h ≈ 2.4 天；乘积误读 exp(-0.45*C) 得约 16.5 h",
+      "conclusion": "题面称「烘干过程一般持续2-3 天」，仅分式读法与之相符，独立佐证 R1 规则"
+    }
+  ]
+}

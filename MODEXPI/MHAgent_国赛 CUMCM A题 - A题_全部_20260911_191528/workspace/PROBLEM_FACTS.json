@@ -1,0 +1,348 @@
+{
+  "_meta": {
+    "problem_id": "2026A",
+    "problem_title": "药材的烘干问题",
+    "source_pages": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "source_files": [
+      {
+        "path": "user_data/A题_extracted.txt",
+        "sha256": "52ee304923c1189a201229373c9e9f424d8bc95a59a5614f3ac2d8372015a323",
+        "note": "workflow_engine 入口自动产出的提取文本（本记录已于 comp-modeling 阶段按上游重跑结果更新，见 hash_history；视觉识别 3/4 页成功，公式仍被压平，不得编辑）",
+        "hash_history": [
+          {
+            "sha256": "7b98ee27c999a3db469964c3809841aeb62a73f83f6c1cc0b8b9f91d210d9d30",
+            "recorded_at": "2026-09-10T18:40 (comp-problem 阶段)",
+            "superseded_at": "2026-09-10T21:15 (comp-modeling 阶段发现并更正)",
+            "reason": "上游 PDF 视觉提取流程于 2026-09-10T19:54 重跑并覆写了本文件（.mh/PDF_VISION_STATE.json 记 status=partial, attempted_at=1789041246；文件 mtime 19:54 晚于本 facts 的 18:40），视觉成功页数由 0/4 提升到 3/4。哈希失配源于上游合法重跑，非人为篡改。",
+            "content_verification": "更新前做了三项客观核对：(1) PROBLEM_FACTS.json 全部 49 个数值字段在重跑后的 extracted.txt 与 verbatim_pdftext.txt 并集中全部找到，缺失集为空；(2) 重跑后 extracted.txt 抽出的 55 个数字是哈希未失配的 A题_verbatim_pdftext.txt 所含 90 个数字的真子集，即重跑没有引入任何新数值；(3) A题_verbatim_pdftext.txt 的 sha256 (d0c842319806f126...) 校验一致，取证基线完好，且其单独一份即覆盖全部 49 个 facts 数字。",
+            "actor": "comp-modeling（仅更新本 JSON 的哈希记录；未修改 user_data/ 下任何文件，未修改 _utils/ 下任何校验器）"
+          }
+        ]
+      },
+      {
+        "path": "user_data/A题_verbatim_pdftext.txt",
+        "sha256": "d0c842319806f12669bec7e4f8df915fef65d9541027c494bfd8854ca3327986",
+        "note": "本阶段由 PyMuPDF 逐页 get_text 机器生成的逐字转录 + 依据 PDF fraction-bar 矢量图元几何位置还原的公式结构；仅在中日韩字符与数字间插入空格，未改动任何数值"
+      }
+    ],
+    "verification_notes": [
+      "OCR 兜底文本把上标与分式压平（如 '10−9e−0.89' 换行接 'C'），四页视觉识别全部失败，因此另建逐字转录作为数字与公式的权威源。",
+      "扩散系数指数项的分式结构由 PDF 内 fraction-bar 矢量图元(drawings)证实：第3页横线 rect=[326.2,730.3,340.6,730.8]，分子 -0.89 在 y=[722.5,730.1]（线上），分母 C 在 y=[730.8,738.3]（线下）。故为 exp(-0.89/C)，非 exp(-0.89*C)。",
+      "该判读经两项独立物理校验佐证：(a) 按分式读法问题3 干燥时长约 57 h ≈ 2.4 天，与题面 '烘干过程一般持续2-3 天' 相符；按乘积误读仅约 16.5 h，与题面矛盾。(b) 分式读法给出 D 随含水率下降而减小（吸湿性物料的正确定性行为），乘积误读给出 D 随干燥反而增大。"
+    ]
+  },
+  "geometry": {
+    "shape": "圆柱形",
+    "length_cm": 25,
+    "radius_cm": 2,
+    "raw_quote": "某中药材形状大致呈圆柱形，长为25 cm，半径为2 cm",
+    "source": "P1, 问题1",
+    "must_use_verbatim": true
+  },
+  "initial_conditions": {
+    "T0_degC": 28,
+    "C0_kg_per_kg": 2.55,
+    "C0_definition": "干基含水率",
+    "raw_quote": "烘干开始时，药材的温度为28°C，水分浓度（即干基含水率）为2.55 kg/kg",
+    "source": "P1, 问题1",
+    "must_use_verbatim": true
+  },
+  "drying_criterion": {
+    "C_threshold_kg_per_kg": 0.15,
+    "scope": "药材各处（逐点判据，非平均含水率）",
+    "raw_quote": "按照烘干要求，药材各处的水分浓度应低于0.15 kg/kg",
+    "source": "P2, 问题3",
+    "must_use_verbatim": true
+  },
+  "process_stages": {
+    "stage_names": [
+      "预热平衡",
+      "恒温干燥"
+    ],
+    "total_duration_days_low": 2,
+    "total_duration_days_high": 3,
+    "raw_quote": "该方式主要包括预热平衡和恒温干燥两个阶段 / 烘干过程一般持续2-3 天，预热平衡与恒温干燥阶段的参数有所不同",
+    "source": "P1 背景, P2 问题2"
+  },
+  "given_params_appendix2": {
+    "applies_to": "问题1",
+    "source": "P3, 附录2",
+    "note": "附录2 仅给常物性；附录3/4 未重新给出 h 与 hm，故对流换热/传质系数在全部子问题沿用本节值",
+    "rho_kg_per_m3": {
+      "value": 820,
+      "raw_quote": "密度为820 kg/m3",
+      "must_use_verbatim": true
+    },
+    "cp_J_per_kgK": {
+      "value": 2600,
+      "raw_quote": "比热容为2600 J/(kg·K)",
+      "must_use_verbatim": true
+    },
+    "k_W_per_mK": {
+      "value": 0.36,
+      "raw_quote": "热传导系数为0.36 W/(m·K)",
+      "must_use_verbatim": true
+    },
+    "h_conv_heat_W_per_m2K": {
+      "value": 25,
+      "raw_quote": "对流换热系数为25 W/(m2·K)",
+      "must_use_verbatim": true
+    },
+    "hm_conv_mass_m_per_s": {
+      "mantissa": 8,
+      "exp10": -7,
+      "formula": "8 × 10^{-7}",
+      "unit": "m/s",
+      "raw_quote": "对流传质系数为 8 × 10−7 m/s",
+      "must_use_verbatim": true
+    },
+    "D_formula": {
+      "formula": "D = 7e-9 * exp(-0.89 / C)",
+      "mantissa": 7,
+      "exp10": -9,
+      "exp_numerator": -0.89,
+      "exp_denominator_symbol": "C",
+      "acts_on": "指数项为分式 (-0.89)/C —— 0.89 与 C 相除，不是相乘；D 只依赖 C，不依赖 T",
+      "unit": "m^2/s",
+      "raw_quote": "水分浓度扩散系数的经验公式为 D= 7 × 10−9e−0.89 / C",
+      "pdf_evidence": "第3页 fraction-bar rect=[326.2,730.3,340.6,730.8]；分子 -0.89 在线上，分母 C 在线下",
+      "must_use_verbatim": true
+    }
+  },
+  "empirical_formulas_appendix3": {
+    "applies_to": "问题2 与 问题3",
+    "source": "P4, 附录3",
+    "rho": {
+      "formula": "rho = 650 + 128 * C",
+      "const": 650,
+      "coef_C": 128,
+      "unit": "kg/m^3",
+      "must_use_verbatim": true
+    },
+    "cp": {
+      "formula": "cp = 1450 + 2736 * C/(C+1)",
+      "const": 1450,
+      "coef_frac": 2736,
+      "acts_on": "第二项作用在分式 C/(C+1) 上（不是 C 本身）",
+      "unit": "J/(kg·K)",
+      "must_use_verbatim": true
+    },
+    "k": {
+      "formula": "k = 0.21 + 0.38 * C/(C+1)",
+      "const": 0.21,
+      "coef_frac": 0.38,
+      "acts_on": "第二项作用在分式 C/(C+1) 上（不是 C 本身）",
+      "unit": "W/(m·K)",
+      "must_use_verbatim": true
+    },
+    "D": {
+      "formula": "D = 2.4e-3 * exp(-0.45 / C) * exp(-3850 / T)",
+      "mantissa": 2.4,
+      "exp10": -3,
+      "exp1_numerator": -0.45,
+      "exp2_numerator": -3850,
+      "acts_on": "两个指数项均为分式：(-0.45)/C 与 (-3850)/T；C 用 kg/kg，T 用 K（绝对温度）",
+      "unit": "m^2/s",
+      "must_use_verbatim": true
+    },
+    "raw_quote": "rho= 650 + 128C ; cp= 1450 + 2736 · C/(C+1) ; k= 0.21 + 0.38 · C/(C+1) ; D= 2.4 × 10−3 e^{−0.45/C} e^{−3850/T}",
+    "pdf_evidence": "第4页 fraction-bar rect=[324.9,136.0,350.0,136.7](cp), [317.6,161.7,342.7,162.4](k), [317.1,182.4,331.6,182.9](D 指数1), [342.7,182.5,360.1,183.0](D 指数2)"
+  },
+  "empirical_formulas_appendix4": {
+    "applies_to": "问题4",
+    "source": "P4, 附录4",
+    "rho": {
+      "formula": "rho = 760 + 90 * C",
+      "const": 760,
+      "coef_C": 90,
+      "unit": "kg/m^3",
+      "must_use_verbatim": true
+    },
+    "cp": {
+      "formula": "cp = 1850 + 2150 * C/(C+1)",
+      "const": 1850,
+      "coef_frac": 2150,
+      "acts_on": "第二项作用在分式 C/(C+1) 上（不是 C 本身）",
+      "unit": "J/(kg·K)",
+      "must_use_verbatim": true
+    },
+    "k": {
+      "formula": "k = 0.12 + 0.2 * C/(C+1)",
+      "const": 0.12,
+      "coef_frac": 0.2,
+      "acts_on": "第二项作用在分式 C/(C+1) 上（不是 C 本身）",
+      "unit": "W/(m·K)",
+      "must_use_verbatim": true
+    },
+    "D": {
+      "formula": "D = 4.2e-4 * exp(-0.3 / C) * exp(-3850 / T)",
+      "mantissa": 4.2,
+      "exp10": -4,
+      "exp1_numerator": -0.3,
+      "exp2_numerator": -3850,
+      "acts_on": "两个指数项均为分式：(-0.3)/C 与 (-3850)/T；C 用 kg/kg，T 用 K（绝对温度）",
+      "unit": "m^2/s",
+      "must_use_verbatim": true
+    },
+    "raw_quote": "rho= 760 + 90C ; cp= 1850 + 2150 · C/(C+1) ; k= 0.12 + 0.20 · C/(C+1) ; D= 4.2 × 10−4 e^{−0.30/C} e^{−3850/T}",
+    "pdf_evidence": "第4页 fraction-bar rect=[324.9,323.1,350.0,323.8](cp), [317.6,348.8,342.7,349.5](k), [317.1,369.5,331.6,370.0](D 指数1), [342.7,369.6,360.1,370.1](D 指数2)"
+  },
+  "output_spec": {
+    "decimals": {
+      "value": 4,
+      "raw_quote": "所有结果保留四位小数（下同）",
+      "source": "P1, 问题1",
+      "must_use_verbatim": true
+    },
+    "Q1": {
+      "paper_table_times_s": [
+        100,
+        300,
+        600,
+        900,
+        1200,
+        1500,
+        1800
+      ],
+      "paper_table_radii_cm": [
+        0,
+        0.5,
+        1,
+        1.5,
+        2
+      ],
+      "file": "result1.xlsx",
+      "file_sheets": [
+        "温度",
+        "水分浓度"
+      ],
+      "file_dt_s": 1,
+      "file_dr_cm": 0.1,
+      "file_t_end_s": 1800,
+      "raw_quote": "按表1 和表2 的格式分别给出100、300、600、900、1200、1500、1800 s，到药材中心距离0、0.5、1、1.5、2 cm 处的结果，并将1800 s 内每隔1 s、到药材中心距离每隔0.1 cm 的完整结果保存到文件result1.xlsx",
+      "source": "P1, 问题1"
+    },
+    "Q2": {
+      "paper_table_times_h": [
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0
+      ],
+      "paper_table_radii_cm": [
+        0,
+        0.5,
+        1,
+        1.5,
+        2
+      ],
+      "file": "result2.xlsx",
+      "file_sheets": [
+        "温度",
+        "水分浓度"
+      ],
+      "file_dt_s": 1,
+      "file_dr_cm": 0.1,
+      "file_t_end_h": 3,
+      "raw_quote": "按表3 和表4 的格式分别给出3 h 内每隔0.5 h、到药材中心距离0、0.5、1、1.5、2 cm 处的结果，并将每隔1 s、到药材中心距离每隔0.1 cm 的完整结果保存到文件result2.xlsx",
+      "source": "P2, 问题2"
+    },
+    "Q3": {
+      "paper_table_dt_h": 6,
+      "paper_table_dr_cm": 0.5,
+      "paper_table_last_row": "烘干结束时间",
+      "file": "result3.xlsx",
+      "file_dt_s": 60,
+      "file_dr_cm": 0.1,
+      "deliverable": "药材烘干所需要的时间（单位：h）",
+      "raw_quote": "按表5 的格式给出每隔6 h、到药材中心距离每隔0.5 cm 的水分浓度，并将药材内部水分浓度每隔60 s、到药材中心距离每隔0.1 cm 的完整结果保存到文件result3.xlsx",
+      "source": "P2, 问题3"
+    },
+    "Q4": {
+      "paper_table_dt_h": 6,
+      "paper_table_dr_cm": 0.5,
+      "paper_table_last_col": "药材表面",
+      "paper_table_last_row": "烘干结束时间",
+      "file": "result4.xlsx",
+      "file_dt_s": 60,
+      "file_dr_cm": 0.1,
+      "deliverable": "药材的烘干时长",
+      "raw_quote": "按表6 的格式给出每隔6 h、到药材中心距离每隔0.5 cm 的水分浓度，并将药材内部水分浓度每隔60 s 时间、0.1 cm 距离的完整结果保存到文件result4.xlsx",
+      "source": "P2-P3, 问题4"
+    }
+  },
+  "attachments": {
+    "附件1": {
+      "content": "烘干初期各时间点（单位：s）烘房的温度（单位：°C）和水分浓度（单位：kg/kg）",
+      "source": "P3, 附录1",
+      "role": "边界条件输入（烘房环境）"
+    },
+    "附件2": {
+      "content": "烘干过程中各时间点（单位：s）药材的半径（单位：cm）",
+      "source": "P3, 附录1",
+      "role": "问题4 移动边界 R(t) 的输入"
+    },
+    "附件3": {
+      "content": "结果文件夹，包括4 个文件（result1.xlsx-result4.xlsx）",
+      "source": "P3, 附录1",
+      "role": "提交模板；A 列为时间（s），第1 行为到药材中心的距离（cm）"
+    }
+  },
+  "rules": [
+    {
+      "id": "R1",
+      "natural_language": "扩散系数经验公式的指数项是分式：exp(-0.89/C)、exp(-0.45/C)、exp(-0.30/C)、exp(-3850/T)，不是相乘",
+      "source": "P3 附录2 / P4 附录3、附录4；由 PDF fraction-bar 矢量图元几何位置证实",
+      "machine_check": "所有 D 计算必须形如 exp(a/C) 且 a<0；代码中若出现 exp(-0.89*C) 形式的乘积写法即判违规"
+    },
+    {
+      "id": "R2",
+      "natural_language": "附录3/附录4 的 D 公式中 T 为绝对温度，单位 K；药材温度以 °C 计算时必须先加 273.15 再代入",
+      "source": "P4 附录3、附录4：T 为药材温度（单位：K）",
+      "machine_check": "exp(-3850/T) 中 T 的取值必须落在 [273, 400] K 区间；若出现 T<100 说明误用摄氏度"
+    },
+    {
+      "id": "R3",
+      "natural_language": "问题2 与问题3 统一采用附录3 的经验公式；问题4 采用附录4 的经验公式；不得混用",
+      "source": "P2 问题2「相关经验公式统一采用附录3 中的公式」；P2 问题4「相关经验公式见附录4」",
+      "machine_check": "problem_2/problem_3 代码只引用 650/128/1450/2736/0.21/0.38/2.4e-3/0.45 系列；problem_4 只引用 760/90/1850/2150/0.12/0.20/4.2e-4/0.30 系列；交叉出现即判违规"
+    },
+    {
+      "id": "R4",
+      "natural_language": "问题1 采用附录2 的常物性（rho=820, cp=2600, k=0.36），不使用附录3 的变物性公式",
+      "source": "P1 问题1「相关参数见附录2」",
+      "machine_check": "problem_1 代码中 rho/cp/k 必须为常量 820/2600/0.36；若出现 650+128*C 即判违规"
+    },
+    {
+      "id": "R5",
+      "natural_language": "干燥合格判据是「各处」水分浓度低于 0.15 kg/kg，即以全域最大值（最慢干燥点）为准，不能用平均含水率",
+      "source": "P2 问题3「药材各处的水分浓度应低于0.15 kg/kg」",
+      "machine_check": "终点判据必须是 C(r,t).max() < 0.15；若代码用 C.mean() < 0.15 即判违规"
+    },
+    {
+      "id": "R6",
+      "natural_language": "问题4 必须依据附件2 给出的半径序列体现药材尺寸随水分流失而收缩",
+      "source": "P2 问题4「药材会因水分流失发生尺寸变化。请根据附件2」",
+      "machine_check": "problem_4 求解域上界必须随时间变化并等于附件2 插值得到的 R(t)；若全程用固定 R=2cm 即判违规"
+    },
+    {
+      "id": "R7",
+      "natural_language": "对流换热系数 25 W/(m^2·K) 与对流传质系数 8e-7 m/s 只在附录2 给出，附录3/4 未重新给定，故全部子问题沿用",
+      "source": "P3 附录2",
+      "machine_check": "四个子问题的 h 与 hm 必须分别恒为 25 与 8e-7"
+    },
+    {
+      "id": "R8",
+      "natural_language": "所有提交结果保留四位小数",
+      "source": "P1 问题1「所有结果保留四位小数（下同）」",
+      "machine_check": "result*.xlsx 中所有数值单元格 round(x,4) 后与写入值相等"
+    }
+  ]
+}

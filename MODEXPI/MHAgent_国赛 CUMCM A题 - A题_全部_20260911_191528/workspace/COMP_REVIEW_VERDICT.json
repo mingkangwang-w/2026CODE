@@ -1,0 +1,21 @@
+{
+  "findings": [
+    {
+      "category": "extrapolation",
+      "severity": "minor",
+      "where": "problem_3/4 t* = 57.27 h / 51.04 h; data_io.py:68-69 平台延拓",
+      "evidence": "附件1仅到14400s，t>14400s取平台常值(T_inf=49.9989,C_inf=0.04999)；t*大部分时程落在观测区间外",
+      "fix": "论文中t*须标注为基于恒温平台延拓的情景模拟、需现场标定，禁确定性口吻；附件2的67.0h半径平台作交叉旁证"
+    },
+    {
+      "category": "bound_direction",
+      "severity": "minor",
+      "where": "B-06 Q4 problem_4.py 温度侧 Robin 残差 rel_res_T=1.213e-3",
+      "evidence": "超逐字上界1e-3(Q4自身口径2e-3内)；已记DEVIATION；按收敛阶需n_cells≈89压到1e-3",
+      "fix": "论文验证章如实报此残差与达标路径；不影响t*量级(cp±20%仅动t* 3.6e-4)"
+    }
+  ],
+  "fatal_count": 0,
+  "checked_categories": ["bound_direction", "double_count", "extrapolation", "missing_feature", "cross_problem", "task_understanding"],
+  "anchor": "constraint_audit 27PASS/0FAIL/1DEV/2DEFER; method_claims 8/8"
+}

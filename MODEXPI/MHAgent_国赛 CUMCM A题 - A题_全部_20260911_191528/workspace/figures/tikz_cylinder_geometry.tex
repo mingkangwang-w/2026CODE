@@ -1,0 +1,54 @@
+% topology: geometry — 圆柱几何与径向坐标
+% MH-TIKZ-ABSOLUTE-OK: 坐标本身对应物料的物理几何位置
+\documentclass[border=4pt]{standalone}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing}
+\definecolor{paperInk}{RGB}{0,0,0}
+\definecolor{paperAccent}{RGB}{58,84,156}
+\begin{document}
+\begin{tikzpicture}[
+  >={Stealth[length=5pt]},
+  guide/.style={paperAccent,dashed,line width=.7pt},
+  dim/.style={paperInk,line width=.6pt,{Stealth[length=4pt]}-{Stealth[length=4pt]}},
+  emph/.style={paperAccent,line width=1.3pt}]
+
+  % 圆柱本体：左右椭圆端面 + 上下母线
+  \def\Rx{0.55}   % 端面椭圆半宽
+  \def\Ry{1.6}    % 端面椭圆半高（对应 R0=2cm）
+  \def\Len{8.0}   % 轴向长度（对应 L=25cm，比例压缩仅为版面）
+  \draw[paperInk,line width=1pt] (0,0) ellipse [x radius=\Rx, y radius=\Ry];
+  \draw[paperInk,line width=1pt] (0,\Ry) -- (\Len,\Ry);
+  \draw[paperInk,line width=1pt] (0,-\Ry) -- (\Len,-\Ry);
+  \draw[paperInk,line width=1pt]
+    (\Len,\Ry) arc [start angle=90, end angle=-90, x radius=\Rx, y radius=\Ry];
+  \draw[paperInk,line width=1pt,densely dotted]
+    (\Len,-\Ry) arc [start angle=-90, end angle=-270, x radius=\Rx, y radius=\Ry];
+
+  % 中心轴线
+  \draw[guide] (-\Rx-0.3,0) -- (\Len+0.5,0) node[right,paperInk]{轴线 $r=0$};
+
+  % 径向坐标 r：从轴线指向侧表面
+  \draw[emph,->] (\Len*0.5,0) -- (\Len*0.5,\Ry)
+      node[midway,left=1pt,paperAccent]{$r$};
+  \fill[paperAccent] (\Len*0.5,0) circle (1.4pt);
+  \node[paperAccent,above right] at (\Len*0.5,\Ry) {侧表面 $r=R$};
+
+  % 半径尺寸 R0
+  \draw[dim] (\Len+0.9,0) -- (\Len+0.9,\Ry) node[midway,right=1pt]{$R_0=2\,$cm};
+  \draw[guide,line width=.5pt] (\Len,0) -- (\Len+1.0,0);
+  \draw[guide,line width=.5pt] (\Len,\Ry) -- (\Len+1.0,\Ry);
+
+  % 轴向尺寸 L
+  \draw[dim] (0,-\Ry-0.9) -- (\Len,-\Ry-0.9) node[midway,below]{$L=25\,$cm};
+  \draw[guide,line width=.5pt] (0,-\Ry) -- (0,-\Ry-1.0);
+  \draw[guide,line width=.5pt] (\Len,-\Ry) -- (\Len,-\Ry-1.0);
+
+  % 端面忽略 + 长径比说明
+  \node[paperInk,align=center,font=\small] at (\Len*0.5,\Ry+1.05)
+    {两端面按假设忽略换热换质，仅侧表面与烘房空气交换};
+  \node[paperAccent,align=center,font=\small] at (\Len*0.5,-\Ry-1.75)
+    {长径比 $L/(2R_0)=6.25\Rightarrow$ 视为一维径向轴对称};
+\end{tikzpicture}
+\end{document}

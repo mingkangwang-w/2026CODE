@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;width:fit-content;height:fit-content;background:transparent}
+.fig,.fig *{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;box-sizing:border-box;font-style:normal!important}
+.fig{width:fit-content;padding:20px 22px;background:transparent;
+  --line:#000;--txt:#000;--ac:hsl(224,46%,42%);--acbg:hsl(224,42%,95%)}
+.band{display:flex;flex-direction:column;gap:6px;width:512px}
+.blab{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+  color:var(--ac);letter-spacing:.06em}
+.blab::after{content:"";flex:1;height:1px;background:var(--ac);opacity:.55}
+.row{display:grid;gap:10px;align-items:stretch;width:512px}
+.r3{grid-template-columns:repeat(3,1fr)}
+.r4{grid-template-columns:repeat(4,1fr)}
+.r2{grid-template-columns:repeat(2,1fr)}
+.n{background:#fff;border:1px solid var(--line);border-radius:5px;padding:8px 10px;
+  color:var(--txt);text-align:center;display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0}
+.n .ttl{font-size:13px;font-weight:600;line-height:1.3}
+.n .sub{font-size:12px;font-weight:400;color:#000;letter-spacing:.02em;line-height:1.3}
+.n.focus{background:var(--acbg);border:1.6px solid var(--ac);border-radius:6px}
+.n.focus .ttl{color:var(--ac);font-weight:700;font-size:14px}
+.gap{display:flex;justify-content:center;align-items:center;height:16px}
+.gap .tri{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;
+  border-top:8px solid var(--ac)}
+.kwrap{display:flex;justify-content:center;width:512px}
+.kwrap .n.focus{width:100%}
+</style></head>
+<body>
+<div class="fig" data-mh-quality="roadmap-v2" data-mh-palette="modern">
+
+  <div class="band">
+    <div class="blab" data-mh-role="stage">输入层</div>
+    <div class="row r3" data-mh-row="1">
+      <div class="n" data-mh-node="true" data-mh-role="input"><span class="ttl">几何与边界条件</span><span class="sub">L=25 cm，R₀=2 cm，两个 Robin 条件</span></div>
+      <div class="n" data-mh-node="true" data-mh-role="input"><span class="ttl">物性本构</span><span class="sub">附录 2/3/4 的 ρ, c_p, k, D</span></div>
+      <div class="n" data-mh-node="true" data-mh-role="input"><span class="ttl">环境与收缩输入</span><span class="sub">附件 1 环境量、附件 2 半径 R(t)</span></div>
+    </div>
+  </div>
+
+  <div class="gap"><span class="tri"></span></div>
+
+  <div class="band">
+    <div class="blab">共享求解内核</div>
+    <div class="kwrap">
+      <div class="n focus" data-mh-node="true" data-mh-focus="true"><span class="ttl">守恒型有限体积 + 向后 Euler·Picard 迭代</span><span class="sub">柱坐标控制体守恒离散，三对角隐式推进，四问共用同一代码路径</span></div>
+    </div>
+  </div>
+
+  <div class="gap"><span class="tri"></span></div>
+
+  <div class="band">
+    <div class="blab">四问递进（同内核、换配置）</div>
+    <div class="row r4" data-mh-row="2">
+      <div class="n" data-mh-node="true"><span class="ttl">问题 1 基线</span><span class="sub">常物性，T–C 弱耦合解耦求场</span></div>
+      <div class="n" data-mh-node="true"><span class="ttl">问题 2 全耦合</span><span class="sub">变物性，步内 Picard 自洽</span></div>
+      <div class="n" data-mh-node="true"><span class="ttl">问题 3 终点</span><span class="sub">maxᵣC&lt;0.15 插值定 t*</span></div>
+      <div class="n" data-mh-node="true"><span class="ttl">问题 4 动边界</span><span class="sub">物质坐标 η=r/R，1/R² 承担收缩</span></div>
+    </div>
+  </div>
+
+  <div class="gap"><span class="tri"></span></div>
+
+  <div class="band">
+    <div class="blab">验证与输出</div>
+    <div class="row r2" data-mh-row="3">
+      <div class="n" data-mh-node="true" data-mh-role="validation"><span class="ttl">三通道验证</span><span class="sub">半解析对照 0.0031 K、守恒残差 &lt;1%、网格收敛</span></div>
+      <div class="n" data-mh-node="true" data-mh-role="output"><span class="ttl">总时长结论</span><span class="sub">问题 3 为 57.27 h，问题 4 为 51.04 h</span></div>
+    </div>
+  </div>
+
+</div>
+</body></html>

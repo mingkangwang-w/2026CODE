@@ -1,0 +1,48 @@
+{
+ "_meta": {
+  "problem_id": "2026A",
+  "problem_title": "药材的烘干问题",
+  "stage": "comp-code",
+  "produced_on": "2026-09-11",
+  "runner": "_utils/run_compute.py code/main.py（前台实跑 200.1 s，非缓存复用）",
+  "sampling": "无抽样：附件1/2/3 全量读入，四问网格与时间步见各 results JSON 的 grid 段；不存在 sample()/nrows= 截断"
+ },
+ "deliverables": [
+  {"path": "code/main.py", "desc": "主控脚本：串联四问 + 敏感性分析 + 台账对撞，实跑入口"},
+  {"path": "code/params.py", "desc": "常量与三套物性参数（附录2/3/4）集中定义，避免物性混用"},
+  {"path": "code/data_io.py", "desc": "附件1 环境曲线、附件2 半径 R(t)、附件3 模板的读取与插值器"},
+  {"path": "code/properties.py", "desc": "rho/cp/k/D 物性求值，含 T+273.15 换算与 Arrhenius 项"},
+  {"path": "code/fvkernel.py", "desc": "守恒型有限体积核：界面半径、算术平均界面物性、质量残差"},
+  {"path": "code/solver.py", "desc": "向后 Euler + Picard 求解器，含固定域与 eta 物质坐标两种模式"},
+  {"path": "code/problem_1.py", "desc": "问题一：预热平衡阶段（0~1800 s）常物性双场耦合求解"},
+  {"path": "code/problem_2.py", "desc": "问题二：附录3 变物性全过程强耦合模型，输出前 3 h"},
+  {"path": "code/problem_3.py", "desc": "问题三：烘干终点 t* 判定 + 网格收敛 + 长时程可靠性"},
+  {"path": "code/problem_4.py", "desc": "问题四：附件2 收缩动边界 + 附录4 物性，eta 坐标求解"},
+  {"path": "code/sensitivity_analysis.py", "desc": "±10% 单因子敏感性分析，含中性扰动接线证明"},
+  {"path": "code/resultio.py", "desc": "结果 JSON 落盘的数值取整策略（保留诊断量有效位）"},
+  {"path": "code/xlsx_writer.py", "desc": "按附件3 模板写 result1~4.xlsx，实际 round(v,4) 落盘"},
+
+  {"path": "figures/problem_1_results.json", "desc": "问题一：温度/水分全场、论文表1表2、Robin 残差与质量守恒诊断"},
+  {"path": "figures/problem_2_results.json", "desc": "问题二：全场、论文表3表4、长时程与守恒格式对照、摄氏误用探针"},
+  {"path": "figures/problem_3_results.json", "desc": "问题三：t*=57.2745 h、论文表5、网格收敛表、终点判据变体对照"},
+  {"path": "figures/problem_4_results.json", "desc": "问题四：t*=51.0444 h、论文表6、收缩预测三组合、伪对流反例对照"},
+  {"path": "figures/sensitivity_results.json", "desc": "±10% 单因子敏感性排序与中性扰动接线证明"},
+  {"path": "figures/all_results.json", "desc": "四问汇总 + logic_probes.bounds 实测值 + 台账对撞结论"},
+
+  {"path": "output/result1.xlsx", "desc": "问题一提交表：温度/水分浓度两表，dt=1 s、dr=0.1 cm，四位小数"},
+  {"path": "output/result2.xlsx", "desc": "问题二提交表：温度/水分浓度两表，dt=1 s、dr=0.1 cm，四位小数"},
+  {"path": "output/result3.xlsx", "desc": "问题三提交表：水分浓度单表，dt=60 s、dr=0.1 cm，四位小数"},
+  {"path": "output/result4.xlsx", "desc": "问题四提交表：水分浓度单表，dt=60 s、dr=0.1 cm，末列随 R(t) 移动"},
+
+  {"path": "RESULTS.md", "desc": "四问方法与数值结果汇总，含审计凭证注释"},
+  {"path": "constraint_audit.py", "desc": "独立复算 B-01..B-30 全部硬约束的审计脚本（不复用 code/ 断言）"},
+  {"path": "method_claims_check.py", "desc": "MC-01..MC-08 方法声称静态核对（补闸的解析盲区）"},
+  {"path": "CAPABILITY_VERDICT.json", "desc": "17 条能力项的 verdict + 实测证据，含 P4-C1 偏离的对照论证"},
+  {"path": "_tmp/constraint_audit_report.json", "desc": "硬约束复算逐条结论（27 PASS / 0 FAIL / 1 DEVIATION / 2 DEFER）"},
+  {"path": "_tmp/method_claims_report.json", "desc": "方法声称核对结论（8/8 已实现）与闸解析缺口记录"},
+  {"path": "_tmp/problem_1_check.md", "desc": "问题一逐问自检记录"},
+  {"path": "_tmp/problem_2_check.md", "desc": "问题二逐问自检记录"},
+  {"path": "_tmp/problem_3_check.md", "desc": "问题三逐问自检记录"},
+  {"path": "_tmp/problem_4_check.md", "desc": "问题四逐问自检记录"}
+ ]
+}

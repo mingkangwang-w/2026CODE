@@ -1,0 +1,54 @@
+% topology: geometry — 表面两个 Robin 边界的通量平衡
+% MH-TIKZ-ABSOLUTE-OK: 坐标对应表面与内部的物理位置
+\documentclass[border=4pt]{standalone}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta,calc,decorations.pathmorphing}
+\definecolor{paperInk}{RGB}{0,0,0}
+\definecolor{paperAccent}{RGB}{58,84,156}
+\begin{document}
+\begin{tikzpicture}[
+  >={Stealth[length=5pt]},
+  solid/.style={paperInk,line width=1pt},
+  cond/.style={paperInk,line width=1.1pt,-{Stealth[length=5pt]}},
+  conv/.style={paperAccent,line width=1.2pt,-{Stealth[length=5pt]}},
+  air/.style={paperAccent,decorate,decoration={snake,amplitude=.6pt,segment length=6pt},line width=.8pt}]
+
+  \def\surf{0}      % 表面位置 r=R
+  \def\H{2.4}
+
+  % 物料内部（左）与烘房空气（右）
+  \fill[paperInk!5] (-3.2,-\H/2) rectangle (\surf,\H/2);
+  \draw[solid] (\surf,-\H/2) -- (\surf,\H/2);
+  \node[paperInk] at (-1.7,\H/2-0.35) {物料内部};
+  \node[paperAccent] at (2.0,\H/2-0.35) {烘房空气};
+  \node[paperInk,above,font=\small] at (\surf,\H/2+0.1) {表面 $r=R$};
+
+  % --- 上半：传热通道 ---
+  \def\yh{0.95}
+  \draw[cond] (-2.6,\yh) -- (\surf-0.05,\yh)
+      node[midway,above=1pt,font=\small]{$-k\,\partial T/\partial r$};
+  \draw[conv] (\surf+0.05,\yh) -- (2.7,\yh)
+      node[midway,above=1pt,font=\small,paperAccent]{$h\,(T_R-T_\infty)$};
+  \node[paperInk,right,font=\small,align=left] at (2.8,\yh)
+      {对流换热\\$h=25$};
+
+  % --- 下半：传质通道 ---
+  \def\ym{-0.95}
+  \draw[cond] (-2.6,\ym) -- (\surf-0.05,\ym)
+      node[midway,below=1pt,font=\small]{$-D\,\partial C/\partial r$};
+  \draw[conv] (\surf+0.05,\ym) -- (2.7,\ym)
+      node[midway,below=1pt,font=\small,paperAccent]{$h_m(C_R-C_\infty)$};
+  \node[paperInk,right,font=\small,align=left] at (2.8,\ym)
+      {对流传质\\$h_m=8\!\times\!10^{-7}$};
+
+  % 表面平衡说明
+  \node[paperAccent,align=center,font=\small] at (\surf,-\H/2-0.85)
+      {表面处内部导热(扩散)通量\\与外部对流通量相等（第三类边界）};
+
+  % 中心对称零通量提示
+  \draw[paperInk,dashed,line width=.7pt] (-3.2,-\H/2-0.15) -- (-3.2,\H/2+0.15);
+  \node[paperInk,rotate=90,font=\small] at (-3.45,0){中心 $r=0$：$\partial/\partial r=0$};
+\end{tikzpicture}
+\end{document}

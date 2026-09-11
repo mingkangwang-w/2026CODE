@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;width:fit-content;height:fit-content;background:transparent}
+.fig,.fig *{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;box-sizing:border-box;font-style:normal!important}
+.fig{width:fit-content;padding:20px 24px;background:transparent;
+  --line:#000;--txt:#000;--ac:hsl(224,46%,42%);--acbg:hsl(224,42%,95%)}
+.col{display:flex;flex-direction:column;align-items:center;gap:0;width:500px}
+.n{background:#fff;border:1px solid var(--line);border-radius:5px;padding:6px 12px;color:var(--txt);
+  text-align:center;display:flex;flex-direction:column;gap:2px;width:100%;justify-content:center}
+.n .ttl{font-size:13px;font-weight:600;line-height:1.3}
+.n .sub{font-size:12px;font-weight:400;line-height:1.3;letter-spacing:.02em}
+.cap{border-radius:999px;background:var(--acbg);border:1.4px solid var(--ac)}
+.cap .ttl{color:var(--ac);font-weight:700}
+.dec{border:1.6px solid var(--ac);border-radius:6px}
+.dec .ttl{color:var(--ac);font-weight:700}
+.arw{display:flex;flex-direction:column;align-items:center}
+.arw .ln{width:1.4px;height:10px;background:var(--line)}
+.arw .tp{width:0;height:0;border-top:7px solid var(--line);border-left:5px solid transparent;border-right:5px solid transparent}
+.loopwrap{display:flex;align-items:stretch;width:500px}
+.loopback{display:flex;align-items:center;justify-content:center;border-left:1.4px dashed var(--ac);
+  border-top:1.4px dashed var(--ac);border-bottom:1.4px dashed var(--ac);border-radius:5px 0 0 5px;padding:0 6px;margin-right:9px;width:34px}
+.loopback .txt{writing-mode:vertical-rl;font-size:12px;color:var(--ac);letter-spacing:.14em;font-weight:600}
+.itbox{border:1.4px solid var(--ac);border-radius:7px;padding:9px;display:flex;flex-direction:column;gap:0;
+  align-items:center;flex:1;background:transparent}
+.itbox .hd{font-size:12px;font-weight:700;color:var(--ac);margin-bottom:5px;letter-spacing:.04em}
+.itn{background:#fff;border:1px solid var(--line);border-radius:5px;padding:6px 10px;width:100%;text-align:center;
+  font-size:12px;font-weight:500;line-height:1.25}
+.mini{display:flex;flex-direction:column;align-items:center}
+.mini .ln{width:1.4px;height:9px;background:var(--line)}
+.mini .tp{width:0;height:0;border-top:6px solid var(--line);border-left:4px solid transparent;border-right:4px solid transparent}
+.lbl{font-size:12px;font-weight:600;margin:2px 0}
+.lbl.no{color:var(--ac)}
+</style></head>
+<body>
+<div class="fig" data-mh-palette="modern">
+  <div class="col">
+    <div class="n cap" data-mh-col="1"><span class="ttl">装配附录 3 变物性 + 两阶段环境量</span><span class="sub">ρ(C), c_p(C), k(C), D(C,T)；分界由 T∞,C∞ 平台体现</span></div>
+    <div class="arw" data-mh-col="1"><div class="ln"></div><div class="tp"></div></div>
+  </div>
+
+  <div class="loopwrap">
+    <div class="loopback"><span class="txt">未自洽 · 回到物性更新</span></div>
+    <div class="itbox">
+      <div class="hd">时间步 tⁿ → tⁿ⁺¹ 内的 Picard 耦合迭代</div>
+      <div class="itn">逐节点更新物性 ρ, c_p, k, D</div>
+      <div class="mini"><div class="ln"></div><div class="tp"></div></div>
+      <div class="itn">解温度场 T（三对角隐式）</div>
+      <div class="mini"><div class="ln"></div><div class="tp"></div></div>
+      <div class="itn">用新 T 更新 Arrhenius 扩散 D(C,T)</div>
+      <div class="mini"><div class="ln"></div><div class="tp"></div></div>
+      <div class="itn">解水分场 C（三对角隐式）</div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="arw" data-mh-col="1"><div class="ln"></div><div class="tp"></div></div>
+    <div class="n dec" data-mh-col="1"><span class="ttl">是否达到自洽？</span><span class="sub">‖ΔT‖∞&lt;10⁻⁶ 且 ‖ΔC‖∞&lt;10⁻⁸</span></div>
+    <div class="lbl">是</div>
+    <div class="arw" data-mh-col="1"><div class="tp"></div></div>
+    <div class="n dec" data-mh-col="1"><span class="ttl">是否推进到 3 h？</span><span class="sub">否则回到下一时间步</span></div>
+    <div class="lbl">是</div>
+    <div class="arw" data-mh-col="1"><div class="tp"></div></div>
+    <div class="n" data-mh-col="1"><span class="ttl">截取前 3 h 并按题面网格采样</span><span class="sub">6 个时刻 × 5 个深度（0.5 至 3 h、0 至 2 cm），得表 3、表 4</span></div>
+    <div class="arw" data-mh-col="1"><div class="ln"></div><div class="tp"></div></div>
+    <div class="n cap" data-mh-col="1"><span class="ttl">导出全过程模型的温度与水分双表</span></div>
+  </div>
+</div>
+</body></html>

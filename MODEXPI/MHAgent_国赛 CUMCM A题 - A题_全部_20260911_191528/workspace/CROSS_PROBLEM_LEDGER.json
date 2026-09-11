@@ -1,0 +1,310 @@
+{
+ "meta": {
+  "problem": "CUMCM 2026A 药材的烘干问题",
+  "produced_by": "comp-modeling / MODELING_REPORT.md 第 10 节",
+  "produced_on": "2026-09-10",
+  "purpose": "登记各子问题的关键结论及其对下游子问题的硬约束，供 _utils/cross_problem_check.py 做横向对撞",
+  "observed_provenance": "computed",
+  "downstream_contract": "comp-code 必须用 figures/all_results.json 的实算值覆盖每个 problems[].observed，并把 meta.observed_provenance 改为 computed。未覆盖时本闸虽然自洽通过，但不构成对实算结果的验证。",
+  "moisture_basis": "干基 kg 水/kg 干物质，允许大于 1。任何把含水率当湿基或体积浓度的换算都会先在 初始含水率_kgkg 一条上崩掉（湿基折算值为 2.55/(1+2.55)=0.7183）。",
+  "endpoint_criterion": "max_r C(r,t) <= 0.15 kg/kg，四问共用同一判据",
+  "unit_guard": "observed 一律写成 {value, unit} 对象，使 cross_problem_check 的单位一致性分支生效；单位字符串与上游 conclusions.unit 必须逐字相同。",
+  "observed_computed_by": "code/main.py（figures/all_results.json 同批实算）",
+  "observed_computed_on": "2026-09-11"
+ },
+ "problems": [
+  {
+   "id": "Q1",
+   "role": "附录 2 常物性，预热平衡阶段 t<=1800 s 的温度场与水分场",
+   "conclusions": [
+    {
+     "quantity": "初始含水率_kgkg",
+     "value": 2.55,
+     "unit": "kg/kg(dry)",
+     "kind": "given",
+     "imposes": {
+      "on": [
+       "Q1",
+       "Q2",
+       "Q3",
+       "Q4"
+      ],
+      "must_le": 2.55,
+      "must_ge": 2.55,
+      "note": "题面给定干基初值，四问共用；若某问出现 0.7183 之类的数就是误按湿基折算"
+     }
+    },
+    {
+     "quantity": "水分质量守恒残差",
+     "value": 5.4e-14,
+     "unit": "1",
+     "kind": "bound",
+     "imposes": {
+      "on": [
+       "Q1",
+       "Q2",
+       "Q3",
+       "Q4"
+      ],
+      "must_le": 0.01,
+      "note": "HC-13。守恒型有限体积是恒等式，四问都应落在 1e-6 以下；问题 4 亦不例外，见 MODELING_REPORT §9.3"
+     }
+    },
+    {
+     "quantity": "中心含水率_1800s",
+     "value": 2.55,
+     "unit": "kg/kg(dry)",
+     "kind": "steady",
+     "imposes": {
+      "on": [
+       "Q2"
+      ],
+      "must_ge": 2.54,
+      "note": "R0^2/D=8.101e4 s 远大于 1800 s，预热阶段中心不该失水；Q2 在 0.5 h 处若已明显下降，说明质扩散系数或表面系数放大了"
+     }
+    }
+   ],
+   "observed": {
+    "初始含水率_kgkg": {
+     "value": 2.55,
+     "unit": "kg/kg(dry)"
+    },
+    "水分质量守恒残差": {
+     "value": 4.28458e-14,
+     "unit": "1"
+    },
+    "中心含水率_1800s": {
+     "value": 2.549992,
+     "unit": "kg/kg(dry)"
+    }
+   }
+  },
+  {
+   "id": "Q2",
+   "role": "附录 3 变物性，全过程双向强耦合，输出 t<=3 h",
+   "conclusions": [
+    {
+     "quantity": "三小时末全场温差_degC",
+     "value": 0.1169,
+     "unit": "degC",
+     "kind": "bound",
+     "imposes": {
+      "on": [
+       "Q3"
+      ],
+      "must_le": 0.15,
+      "note": "3 h 后温度场进入准稳态；Q3 与 Q2 同物性同方程，只是终止条件不同，必须复现同一温度状态"
+     }
+    },
+    {
+     "quantity": "三小时末中心含水率",
+     "value": 1.7662,
+     "unit": "kg/kg(dry)",
+     "kind": "state",
+     "imposes": {
+      "on": [
+       "Q3"
+      ],
+      "must_le": 1.7762,
+      "must_ge": 1.7562,
+      "note": "同一条附录 3 轨迹上的同一时刻，容差 ±0.01 覆盖 dt 由 0.5 s 放宽到 5 s 的差异"
+     }
+    },
+    {
+     "quantity": "三小时末表面含水率",
+     "value": 1.0081,
+     "unit": "kg/kg(dry)",
+     "kind": "state",
+     "imposes": {
+      "on": [
+       "Q3"
+      ],
+      "must_le": 1.0181,
+      "must_ge": 0.9981,
+      "note": "表面是 Robin 边界最敏感的位置，两问不一致即传质系数或环境插值口径漂移"
+     }
+    },
+    {
+     "quantity": "环境温度平台值_degC",
+     "value": 49.9989,
+     "unit": "degC",
+     "kind": "bound",
+     "imposes": {
+      "on": [
+       "Q3",
+       "Q4"
+      ],
+      "must_le": 50.0,
+      "must_ge": 49.99,
+      "note": "HC-21。附录数据只到 3 h，长时程必须按平台常值延拓；线性外推到 57 h 会得到几百度"
+     }
+    }
+   ],
+   "observed": {
+    "初始含水率_kgkg": {
+     "value": 2.55,
+     "unit": "kg/kg(dry)"
+    },
+    "水分质量守恒残差": {
+     "value": 2.33931e-14,
+     "unit": "1"
+    },
+    "中心含水率_1800s": {
+     "value": 2.549931,
+     "unit": "kg/kg(dry)"
+    },
+    "三小时末全场温差_degC": {
+     "value": 0.116929,
+     "unit": "degC"
+    },
+    "三小时末中心含水率": {
+     "value": 1.766189,
+     "unit": "kg/kg(dry)"
+    },
+    "三小时末表面含水率": {
+     "value": 1.008108,
+     "unit": "kg/kg(dry)"
+    },
+    "环境温度平台值_degC": {
+     "value": 49.998934,
+     "unit": "degC"
+    }
+   }
+  },
+  {
+   "id": "Q3",
+   "role": "附录 3 变物性，积分至 max_r C <= 0.15 判定烘干结束时间",
+   "conclusions": [
+    {
+     "quantity": "烘干结束时间_h",
+     "value": 57.2745,
+     "unit": "h",
+     "kind": "endpoint",
+     "imposes": {
+      "on": [
+       "Q4"
+      ],
+      "must_le": 55.0,
+      "must_ge": 40.0,
+      "note": "问题 4 的收缩把 1/R^2 放大 2.786 倍，必须显著快于问题 3；上界留 2.3 h 余量（B-17 网格容差 1% 约 0.57 h）。若 Q4 反而更慢，几乎一定是把 D 的附录 3/附录 4 物性混用或收缩没进方程"
+     }
+    },
+    {
+     "quantity": "终点最大含水率",
+     "value": 0.15,
+     "unit": "kg/kg(dry)",
+     "kind": "criterion",
+     "imposes": {
+      "on": [
+       "Q4"
+      ],
+      "must_le": 0.1501,
+      "must_ge": 0.1499,
+      "note": "HC-05。判据取全域最大值（即中心），不是平均也不是表面；四问共用同一阈值"
+     }
+    },
+    {
+     "quantity": "终点药材半径_cm",
+     "value": 2.0,
+     "unit": "cm",
+     "kind": "given",
+     "imposes": {
+      "on": [
+       "Q4"
+      ],
+      "must_le": 2.0,
+      "must_ge": 1.198,
+      "note": "附件 2 的收缩只到 1.198 cm 且 36 h 后不再变化。低于 1.198 说明把收缩当成了各向同性体积收缩（该路径的一致性误差 21.22% vs 仅径向的 3.29%，见 §9.5）"
+     }
+    }
+   ],
+   "observed": {
+    "初始含水率_kgkg": {
+     "value": 2.55,
+     "unit": "kg/kg(dry)"
+    },
+    "水分质量守恒残差": {
+     "value": 1.55584e-14,
+     "unit": "1"
+    },
+    "三小时末全场温差_degC": {
+     "value": 0.117116,
+     "unit": "degC"
+    },
+    "三小时末中心含水率": {
+     "value": 1.766284,
+     "unit": "kg/kg(dry)"
+    },
+    "三小时末表面含水率": {
+     "value": 1.008163,
+     "unit": "kg/kg(dry)"
+    },
+    "环境温度平台值_degC": {
+     "value": 49.998934,
+     "unit": "degC"
+    },
+    "烘干结束时间_h": {
+     "value": 57.2745,
+     "unit": "h"
+    },
+    "终点最大含水率": {
+     "value": 0.149999,
+     "unit": "kg/kg(dry)"
+    },
+    "终点药材半径_cm": {
+     "value": 2.0,
+     "unit": "cm"
+    }
+   }
+  },
+  {
+   "id": "Q4",
+   "role": "附录 4 变物性 + 附件 2 仅径向收缩，物质坐标 eta=r/R(t)，积分至同一阈值",
+   "conclusions": [
+    {
+     "quantity": "物质坐标守恒残差",
+     "value": 9.5e-15,
+     "unit": "1",
+     "kind": "bound",
+     "imposes": {
+      "on": [
+       "Q4"
+      ],
+      "must_le": 1e-06,
+      "note": "反向登记：动边界不是守恒残差变大的正当理由。物质坐标形式下残差仍是 1e-15 量级，而保留伪对流项会退化到 0.2542（见 §9.3），故上游 HC-10 与 HC-13 不可同时成立，本报告 §0.2 已给出修订"
+     }
+    }
+   ],
+   "observed": {
+    "初始含水率_kgkg": {
+     "value": 2.55,
+     "unit": "kg/kg(dry)"
+    },
+    "水分质量守恒残差": {
+     "value": 9.14926e-14,
+     "unit": "1"
+    },
+    "物质坐标守恒残差": {
+     "value": 9.14926e-14,
+     "unit": "1"
+    },
+    "环境温度平台值_degC": {
+     "value": 49.998934,
+     "unit": "degC"
+    },
+    "烘干结束时间_h": {
+     "value": 51.0444,
+     "unit": "h"
+    },
+    "终点最大含水率": {
+     "value": 0.15,
+     "unit": "kg/kg(dry)"
+    },
+    "终点药材半径_cm": {
+     "value": 1.2,
+     "unit": "cm"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;width:fit-content;height:fit-content;background:transparent}
+.fig,.fig *{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;box-sizing:border-box;font-style:normal!important}
+.fig{width:fit-content;padding:20px 24px;background:transparent;
+  --line:#000;--txt:#000;--ac:hsl(224,46%,42%);--acbg:hsl(224,42%,95%)}
+.col{display:flex;flex-direction:column;align-items:center;gap:0;width:480px}
+.n{background:#fff;border:1px solid var(--line);border-radius:5px;padding:6px 12px;color:var(--txt);
+  text-align:center;display:flex;flex-direction:column;gap:2px;width:100%;justify-content:center}
+.n .ttl{font-size:13px;font-weight:600;line-height:1.3}
+.n .sub{font-size:12px;font-weight:400;line-height:1.3;letter-spacing:.02em}
+.cap{border-radius:999px;background:var(--acbg);border:1.4px solid var(--ac)}
+.cap .ttl{color:var(--ac);font-weight:700}
+.dec{border:1.6px solid var(--ac);border-radius:6px}
+.dec .ttl{color:var(--ac);font-weight:700}
+.arw{display:flex;flex-direction:column;align-items:center}
+.arw .ln{width:1.4px;height:10px;background:var(--line)}
+.arw .tp{width:0;height:0;border-top:7px solid var(--line);border-left:5px solid transparent;border-right:5px solid transparent}
+.loopwrap{display:flex;align-items:stretch;width:480px}
+.loopback{display:flex;align-items:center;justify-content:center;border-left:1.4px dashed var(--ac);
+  border-top:1.4px dashed var(--ac);border-bottom:1.4px dashed var(--ac);border-radius:5px 0 0 5px;padding:0 6px;margin-right:9px;width:34px}
+.loopback .txt{writing-mode:vertical-rl;font-size:12px;color:var(--ac);letter-spacing:.14em;font-weight:600}
+.itbox{border:1.4px solid var(--ac);border-radius:7px;padding:9px;display:flex;flex-direction:column;gap:0;
+  align-items:center;flex:1;background:transparent}
+.itbox .hd{font-size:12px;font-weight:700;color:var(--ac);margin-bottom:5px;letter-spacing:.04em}
+.itn{background:#fff;border:1px solid var(--line);border-radius:5px;padding:6px 10px;width:100%;text-align:center;
+  font-size:12px;font-weight:500;line-height:1.25}
+.mini{display:flex;flex-direction:column;align-items:center}
+.mini .ln{width:1.4px;height:9px;background:var(--line)}
+.mini .tp{width:0;height:0;border-top:6px solid var(--line);border-left:4px solid transparent;border-right:4px solid transparent}
+.lbl{font-size:12px;font-weight:600;margin:2px 0}
+.lbl.no{color:var(--ac)}
+</style></head>
+<body>
+<div class="fig" data-mh-palette="modern">
+  <div class="col">
+    <div class="n cap" data-mh-col="1"><span class="ttl">承接问题 2 全过程耦合模型</span><span class="sub">变物性 + 两阶段环境量，长时程向前推进</span></div>
+    <div class="arw" data-mh-col="1"><div class="ln"></div><div class="tp"></div></div>
+  </div>
+
+  <div class="loopwrap">
+    <div class="loopback"><span class="txt">未达阈值 · 推进下一时间步</span></div>
+    <div class="itbox">
+      <div class="hd">逐步推进并监测干燥程度</div>
+      <div class="itn">向后 Euler·Picard 求解耦合 T、C 场</div>
+      <div class="mini"><div class="ln"></div><div class="tp"></div></div>
+      <div class="itn">取当前时刻全域最大含水率 maxᵣ C(r, tⁿ)</div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="arw" data-mh-col="1"><div class="ln"></div><div class="tp"></div></div>
+    <div class="n dec" data-mh-col="1"><span class="ttl">最大含水率是否降到阈值以下？</span><span class="sub">判据 maxᵣ C(tⁿ) &lt; 0.15</span></div>
+    <div class="lbl">是（刚跨越阈值）</div>
+    <div class="arw" data-mh-col="1"><div class="tp"></div></div>
+    <div class="n" data-mh-col="1"><span class="ttl">在跨越阈值的相邻两步间线性插值</span><span class="sub">对 maxᵣ C(t) 反插得到干燥终点时刻 t*</span></div>
+    <div class="arw" data-mh-col="1"><div class="ln"></div><div class="tp"></div></div>
+    <div class="n cap" data-mh-col="1"><span class="ttl">输出干燥终点时刻 t* 作为总时长</span><span class="sub">全域含水率首次整体低于阈值的时刻</span></div>
+  </div>
+</div>
+</body></html>

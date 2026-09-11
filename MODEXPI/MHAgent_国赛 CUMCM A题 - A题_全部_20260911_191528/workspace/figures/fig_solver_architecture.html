@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;width:fit-content;height:fit-content;background:transparent}
+.fig,.fig *{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;box-sizing:border-box;font-style:normal!important}
+.fig{width:fit-content;padding:20px 22px;background:transparent;
+  --line:#000;--txt:#000;--ac:hsl(224,46%,42%);--acbg:hsl(224,42%,95%)}
+.layer{display:flex;align-items:stretch;width:540px}
+.tag{flex:0 0 32px;display:flex;align-items:center;justify-content:center;background:var(--acbg);
+  border:1.4px solid var(--ac);border-right:none;border-radius:6px 0 0 6px;
+  writing-mode:vertical-rl;font-size:12px;font-weight:700;color:var(--ac);letter-spacing:.16em}
+.box{flex:1;border:1.4px solid var(--ac);border-left:none;border-radius:0 6px 6px 0;padding:9px 10px}
+.row{display:grid;gap:8px}
+.r3{grid-template-columns:repeat(3,1fr)}
+.r4{grid-template-columns:repeat(4,1fr)}
+.n{background:#fff;border:1px solid var(--line);border-radius:5px;padding:6px 8px;color:var(--txt);
+  text-align:center;display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0}
+.n .ttl{font-size:13px;font-weight:600;line-height:1.28}
+.n .sub{font-size:12px;font-weight:400;line-height:1.28;letter-spacing:.02em}
+.kn{background:var(--acbg);border:1.4px solid var(--ac);border-radius:6px;padding:7px 8px;text-align:center;
+  display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0}
+.kn .ttl{font-size:13px;font-weight:700;color:var(--ac);line-height:1.28}
+.kn .sub{font-size:12px;font-weight:400;color:var(--txt);line-height:1.28;letter-spacing:.02em}
+.gap{display:flex;justify-content:center;align-items:center;height:15px;width:540px}
+.gap .tri{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;
+  border-top:8px solid var(--ac)}
+</style></head>
+<body>
+<div class="fig" data-mh-quality="arch-v1" data-mh-palette="modern">
+
+  <div class="layer" data-mh-row="1">
+    <div class="tag" data-mh-role="stage">配置层</div>
+    <div class="box">
+      <div class="row r3">
+        <div class="n" data-mh-node="true"><span class="ttl">物性本构模块</span><span class="sub">常物性 / 变物性 ρ,c_p,k,D 可切换</span></div>
+        <div class="n" data-mh-node="true"><span class="ttl">环境驱动模块</span><span class="sub">单段或两阶段 T∞(t)、C∞(t)</span></div>
+        <div class="n" data-mh-node="true"><span class="ttl">边界与坐标模块</span><span class="sub">Robin 条件；固定域或物质坐标</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"><span class="tri"></span></div>
+
+  <div class="layer" data-mh-row="2">
+    <div class="tag">内核层</div>
+    <div class="box">
+      <div class="row r4">
+        <div class="kn" data-mh-node="true" data-mh-focus="true"><span class="ttl">守恒型有限体积离散</span><span class="sub">柱坐标控制体</span></div>
+        <div class="kn" data-mh-node="true" data-mh-focus="true"><span class="ttl">三对角隐式求解器</span><span class="sub">Thomas 追赶法</span></div>
+        <div class="kn" data-mh-node="true" data-mh-focus="true"><span class="ttl">向后 Euler 时间推进</span><span class="sub">无条件稳定</span></div>
+        <div class="kn" data-mh-node="true" data-mh-focus="true"><span class="ttl">Picard 耦合迭代</span><span class="sub">步内自洽</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"><span class="tri"></span></div>
+
+  <div class="layer" data-mh-row="3">
+    <div class="tag">实例层</div>
+    <div class="box">
+      <div class="row r4">
+        <div class="n" data-mh-node="true"><span class="ttl">问题 1 基线</span><span class="sub">常物性弱耦合</span></div>
+        <div class="n" data-mh-node="true"><span class="ttl">问题 2 全耦合</span><span class="sub">变物性自洽</span></div>
+        <div class="n" data-mh-node="true"><span class="ttl">问题 3 终点</span><span class="sub">阈值插值定 t*</span></div>
+        <div class="n" data-mh-node="true"><span class="ttl">问题 4 动边界</span><span class="sub">物质坐标收缩</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap"><span class="tri"></span></div>
+
+  <div class="layer" data-mh-row="4">
+    <div class="tag">输出层</div>
+    <div class="box">
+      <div class="row r3">
+        <div class="n" data-mh-node="true" data-mh-role="validation"><span class="ttl">三通道验证</span><span class="sub">半解析对照 · 守恒残差 · 网格收敛</span></div>
+        <div class="n" data-mh-node="true" data-mh-role="output"><span class="ttl">双场结果表</span><span class="sub">温度与含水率随时间深度分布</span></div>
+        <div class="n" data-mh-node="true" data-mh-role="output"><span class="ttl">干燥总时长结论</span><span class="sub">终点判据下的 t*</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body></html>

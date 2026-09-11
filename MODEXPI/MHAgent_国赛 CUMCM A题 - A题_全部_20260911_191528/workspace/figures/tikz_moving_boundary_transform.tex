@@ -1,0 +1,64 @@
+% topology: geometry — 物质坐标映射 [0,R(t)] -> [0,1]
+% MH-TIKZ-ABSOLUTE-OK: 坐标对应物理域与计算域的位置
+\documentclass[border=4pt]{standalone}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing}
+\definecolor{paperInk}{RGB}{0,0,0}
+\definecolor{paperAccent}{RGB}{58,84,156}
+\begin{document}
+\begin{tikzpicture}[
+  >={Stealth[length=5pt]},
+  axisline/.style={paperInk,line width=.9pt,-{Stealth[length=5pt]}},
+  move/.style={paperAccent,line width=1pt,-{Stealth[length=4pt]}},
+  tick/.style={paperInk,line width=.8pt}]
+
+  % ===== 左：物理域 [0, R(t)]，边界随时间内移 =====
+  \def\Lx{0}
+  \draw[axisline] (\Lx-0.3,0) -- (\Lx+4.6,0) node[right]{$r$};
+  \node[paperInk,tick] at (\Lx,0) [below=3pt]{$0$};
+  \draw[tick] (\Lx,-0.12)--(\Lx,0.12);
+  % 初始边界 R0
+  \draw[tick] (\Lx+4.0,-0.12)--(\Lx+4.0,0.12);
+  \node[paperInk] at (\Lx+4.0,0)[below=3pt]{$R_0$};
+  % 当前收缩边界 R(t)
+  \draw[paperAccent,line width=1.1pt] (\Lx+2.6,-0.35)--(\Lx+2.6,0.35);
+  \node[paperAccent] at (\Lx+2.6,0)[above=4pt]{$R(t)$};
+  % 边界内移箭头 + 固相迁移速度
+  \draw[move] (\Lx+3.9,0.7) -- (\Lx+2.7,0.7)
+      node[midway,above,font=\small]{边界内移};
+  \foreach \x in {1.0,1.8,2.3}{
+    \draw[move] (\Lx+\x+0.35,-0.62)--(\Lx+\x-0.05,-0.62);
+  }
+  \node[paperAccent,font=\small,align=center] at (\Lx+2.0,-1.05)
+      {固相迁移 $u_s=\dfrac{r}{R}\dot R$};
+  \node[paperInk] at (\Lx+2.0,1.5){物理域（动边界）};
+
+  % ===== 映射箭头 =====
+  \draw[paperAccent,line width=1.3pt,-{Stealth[length=6pt]}]
+      (5.0,0) .. controls (5.8,0.5) and (6.2,0.5) .. (7.0,0);
+  \node[paperAccent,align=center,font=\small] at (6.0,0.95)
+      {$\eta=\dfrac{r}{R(t)}$};
+
+  % ===== 右：计算域 [0,1] 固定 =====
+  \def\Rx{7.4}
+  \draw[axisline] (\Rx-0.3,0) -- (\Rx+4.2,0) node[right]{$\eta$};
+  \draw[tick] (\Rx,-0.12)--(\Rx,0.12);
+  \node[paperInk] at (\Rx,0)[below=3pt]{$0$};
+  \draw[tick] (\Rx+3.6,-0.12)--(\Rx+3.6,0.12);
+  \node[paperInk] at (\Rx+3.6,0)[below=3pt]{$1$};
+  % 固定网格（等分刻度）
+  \foreach \k in {1,...,5}{
+    \draw[paperInk,line width=.5pt] (\Rx+3.6*\k/6,-0.09)--(\Rx+3.6*\k/6,0.09);
+  }
+  \node[paperInk] at (\Rx+1.8,1.5){计算域（固定网格）};
+  \node[paperInk,font=\small] at (\Rx+1.8,-1.05){域固定，收缩改由系数承担};
+
+  % ===== 底部：相消结论 =====
+  \node[paperAccent,align=center,font=\small] at (5.9,-2.2)
+    {坐标运动项 $-\dfrac{\eta\dot R}{R}\partial_\eta C$ 与固相对流项 $+\dfrac{\eta\dot R}{R}\partial_\eta C$ 精确相消};
+  \node[paperInk,align=center,font=\small] at (5.9,-3.0)
+    {收缩效应仅以因子 $\dfrac{1}{R^2(t)}$ 进入扩散项，方程不含伪对流项};
+\end{tikzpicture}
+\end{document}

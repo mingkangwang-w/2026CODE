@@ -1,0 +1,66 @@
+% topology: geometry — 有限体积径向控制体与界面通量
+% MH-TIKZ-ABSOLUTE-OK: 坐标对应径向网格的物理位置
+\documentclass[border=4pt]{standalone}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing,patterns}
+\definecolor{paperInk}{RGB}{0,0,0}
+\definecolor{paperAccent}{RGB}{58,84,156}
+\begin{document}
+\begin{tikzpicture}[
+  >={Stealth[length=5pt]},
+  node dot/.style={circle,fill=paperInk,inner sep=1.4pt},
+  face/.style={paperAccent,line width=1pt},
+  flux/.style={paperAccent,line width=1.1pt,-{Stealth[length=5pt]}},
+  dim/.style={paperInk,line width=.6pt,{Stealth[length=3.5pt]}-{Stealth[length=3.5pt]}}]
+
+  \def\y{0}
+  \def\H{1.15}
+  % 网格界面位置（r 方向），i-1 | i | i+1 三个控制体
+  \def\a{0.0}\def\b{2.0}\def\c{4.0}\def\d{6.0}
+
+  % 轴线 r=0 在最左，画半控制体
+  \draw[paperInk,line width=.9pt,dashed] (-0.6,\y-\H-0.4) -- (-0.6,\y+\H+0.4)
+      node[above,paperInk]{$r=0$};
+
+  % 三个相邻控制体（灰底表示体元，纯线型不靠色）
+  \foreach \L/\R in {\a/\b,\b/\c,\c/\d}{
+    \draw[paperInk,line width=.8pt] (\L,\y-\H) rectangle (\R,\y+\H);
+  }
+  % 界面高亮（东西界面）
+  \draw[face] (\b,\y-\H) -- (\b,\y+\H);
+  \draw[face] (\c,\y-\H) -- (\c,\y+\H);
+
+  % 节点中心 P 与邻居 W, E
+  \node[node dot,label={[paperInk]below:$W$}] (W) at (\a+1.0,\y){};
+  \node[node dot,label={[paperInk]below:$P$}] (P) at (\b+1.0,\y){};
+  \node[node dot,label={[paperInk]below:$E$}] (E) at (\c+1.0,\y){};
+
+  % 界面标记 w, e
+  \node[paperAccent,above] at (\b,\y+\H){$w$};
+  \node[paperAccent,above] at (\c,\y+\H){$e$};
+
+  % 界面通量箭头（进入 P 控制体）
+  \draw[flux] (\b-0.55,\y+0.45) -- (\b+0.55,\y+0.45)
+      node[midway,above=1pt,font=\small]{$J_w$};
+  \draw[flux] (\c-0.55,\y+0.45) -- (\c+0.55,\y+0.45)
+      node[midway,above=1pt,font=\small]{$J_e$};
+
+  % 控制体宽度尺寸
+  \draw[dim] (\b,\y-\H-0.5) -- (\c,\y-\H-0.5) node[midway,below]{$\Delta r$};
+
+  % r=0 半控制体标注
+  \draw[paperAccent,line width=.8pt] (\a,\y-\H) rectangle (\a+1.0,\y+\H);
+  \node[paperAccent,align=center,font=\small] at (-0.6,\y-\H-1.15)
+      {轴线处取半控制体\\对称零通量};
+
+  % 界面物性平均说明（短公式，贴近界面）
+  \node[paperInk,align=center,font=\small] at (\b+1.0,\y+\H+0.85)
+      {界面扩散系数取调和平均\\[2pt]$D_w=2\,D_W D_P/(D_W+D_P)$};
+
+  % r 方向箭头
+  \draw[paperInk,line width=.7pt,->] (\a-0.2,\y-\H-1.6) -- (\d+0.2,\y-\H-1.6)
+      node[right]{$r$};
+\end{tikzpicture}
+\end{document}
