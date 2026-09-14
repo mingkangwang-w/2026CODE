@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="756pt" height="156.731707pt" viewBox="0 0 756 156.731707" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-12T06:38:31.063681</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 156.731707 
+L 756 156.731707 
+L 756 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 135.219512 67.609756 
+Q 144.439024 67.609756 151.981486 67.609756 
+" clip-path="url(#pcf379fe7f6)" style="fill: none; stroke: #b0aea7; stroke-width: 1.5"/>
+    <path d="M 146.781486 65.009756 
+L 151.981486 67.609756 
+L 146.781486 70.209756 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #b0aea7; stroke: #b0aea7; stroke-width: 1.5"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 282.731707 67.609756 
+Q 291.95122 67.609756 299.493681 67.609756 
+" clip-path="url(#pcf379fe7f6)" style="fill: none; stroke: #b0aea7; stroke-width: 1.5"/>
+    <path d="M 294.293681 65.009756 
+L 299.493681 67.609756 
+L 294.293681 70.209756 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #b0aea7; stroke: #b0aea7; stroke-width: 1.5"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 430.243902 67.609756 
+Q 439.463415 67.609756 447.005876 67.609756 
+" clip-path="url(#pcf379fe7f6)" style="fill: none; stroke: #b0aea7; stroke-width: 1.5"/>
+    <path d="M 441.805876 65.009756 
+L 447.005876 67.609756 
+L 441.805876 70.209756 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #b0aea7; stroke: #b0aea7; stroke-width: 1.5"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 602.341463 67.609756 
+Q 611.560976 67.609756 619.103437 67.609756 
+" clip-path="url(#pcf379fe7f6)" style="fill: none; stroke: #b0aea7; stroke-width: 1.5"/>
+    <path d="M 613.903437 65.009756 
+L 619.103437 67.609756 
+L 613.903437 70.209756 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #b0aea7; stroke: #b0aea7; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 525.512195 119.853659 
+L 525.512195 144.439024 
+" clip-path="url(#pcf379fe7f6)" style="fill: none; stroke: #b0aea7; stroke-width: 1.5"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 525.512195 144.439024 
+L 365.707317 144.439024 
+" clip-path="url(#pcf379fe7f6)" style="fill: none; stroke: #b0aea7; stroke-width: 1.5"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 365.707317 144.439024 
+Q 365.707317 129.073171 365.707317 115.384368 
+" clip-path="url(#pcf379fe7f6)" style="fill: none; stroke: #b0aea7; stroke-width: 1.5"/>
+    <path d="M 363.107317 120.584368 
+L 365.707317 115.384368 
+L 368.307317 120.584368 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #b0aea7; stroke: #b0aea7; stroke-width: 1.5"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 6.146341 21.512195 
+L 135.219512 39.029268 
+L 135.219512 96.190244 
+L 6.146341 113.707317 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #edf1f4; stroke: #6f7d8c; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 153.043902 114.321951 
+L 283.346341 114.321951 
+L 283.346341 20.897561 
+L 153.043902 20.897561 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #f7f6f3; stroke: #8a8880; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 300.556098 114.321951 
+L 430.858537 114.321951 
+L 430.858537 20.897561 
+L 300.556098 20.897561 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #f7f6f3; stroke: #8a8880; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 525.512195 15.365854 
+L 602.341463 67.609756 
+L 525.512195 119.853659 
+L 448.682927 67.609756 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #dceaf9; stroke: #2a78d6; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 620.780488 39.029268 
+L 749.853659 21.512195 
+L 749.853659 113.707317 
+L 620.780488 96.190244 
+z
+" clip-path="url(#pcf379fe7f6)" style="fill: #edf1f4; stroke: #6f7d8c; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle" x="70.682927" y="47.283194" transform="rotate(-0 70.682927 47.283194)">输入条件</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="70.682927" y="62.542569" transform="rotate(-0 70.682927 62.542569)">附录 2 常物性</text>
+   </g>
+   <g id="text_3">
+    <!-- $D(C)=7\times10^{-9}e^{-0.89/C}$ -->
+    <g style="fill: #1c1c1c" transform="translate(21.710427 78.342256)">
+     <text>
+      <tspan x="0" y="-0.377414" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">D</tspan>
+      <tspan x="11.545654" y="-0.377414" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">C</tspan>
+      <tspan x="67.218686" y="-0.377414" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">e</tspan>
+      <tspan x="7.85791" y="-0.377414" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">(</tspan>
+      <tspan x="18.327393" y="-0.377414" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">)</tspan>
+      <tspan x="23.683203" y="-0.377414" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">=</tspan>
+      <tspan x="32.731396" y="-0.377414" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">7</tspan>
+      <tspan x="48.197656" y="-0.377414" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">1</tspan>
+      <tspan x="52.947656" y="-0.377414" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">0</tspan>
+      <tspan x="39.149463" y="-0.377414" style="font-size: 9.5px; font-family: 'cmsy10'; fill: #1c1c1c">£</tspan>
+      <tspan x="58.12175" y="-4.0125" style="font-size: 6.65px; font-family: 'cmsy10'; fill: #1c1c1c">¡</tspan>
+      <tspan x="72.234629" y="-4.0125" style="font-size: 6.65px; font-family: 'cmsy10'; fill: #1c1c1c">¡</tspan>
+      <tspan x="63.287838" y="-4.0125" style="font-size: 6.65px; font-family: 'cmr10'; fill: #1c1c1c">9</tspan>
+      <tspan x="77.400718" y="-4.0125" style="font-size: 6.65px; font-family: 'cmr10'; fill: #1c1c1c">0</tspan>
+      <tspan x="82.566807" y="-4.0125" style="font-size: 6.65px; font-family: 'cmr10'; fill: #1c1c1c">8</tspan>
+      <tspan x="85.891807" y="-4.0125" style="font-size: 6.65px; font-family: 'cmr10'; fill: #1c1c1c">9</tspan>
+      <tspan x="80.725718" y="-4.0125" style="font-size: 6.65px; font-family: 'cmmi10'; fill: #1c1c1c">:</tspan>
+      <tspan x="89.216807" y="-4.0125" style="font-size: 6.65px; font-family: 'cmmi10'; fill: #1c1c1c">=</tspan>
+      <tspan x="92.541807" y="-4.0125" style="font-size: 6.65px; font-family: 'cmmi10'; fill: #1c1c1c">C</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_4">
+    <!-- 附件 1：$T_\infty$、$C_\infty$ -->
+    <g style="fill: #1c1c1c" transform="translate(33.490427 92.307256)">
+     <text>
+      <tspan x="0" y="-0.796875" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">附</tspan>
+      <tspan x="9.5" y="-0.796875" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">件</tspan>
+      <tspan x="19" y="-0.796875" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c"> </tspan>
+      <tspan x="23.75" y="-0.796875" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">1</tspan>
+      <tspan x="28.5" y="-0.796875" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">：</tspan>
+      <tspan x="50.803699" y="-0.796875" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">、</tspan>
+      <tspan x="38" y="-0.796875" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">T</tspan>
+      <tspan x="60.303699" y="-0.796875" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">C</tspan>
+      <tspan x="43.547852" y="0.818719" style="font-size: 6.65px; font-family: 'cmsy10'; fill: #1c1c1c">1</tspan>
+      <tspan x="67.085437" y="0.818719" style="font-size: 6.65px; font-family: 'cmsy10'; fill: #1c1c1c">1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle" x="218.195122" y="47.228506" transform="rotate(-0 218.195122 47.228506)">空间离散</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="218.195122" y="62.505459" transform="rotate(-0 218.195122 62.505459)">节点型控制体积法</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="218.195122" y="77.19335" transform="rotate(-0 218.195122 77.19335)">中心洛必达、表面半控制体</text>
+   </g>
+   <g id="text_8">
+    <!-- $N=400$，$\Delta r=0.05$ mm -->
+    <g style="fill: #1c1c1c" transform="translate(170.077622 91.213272)">
+     <text>
+      <tspan x="0" y="-0.203125" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">N</tspan>
+      <tspan x="50.010449" y="-0.203125" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">r</tspan>
+      <tspan x="69.762842" y="-0.203125" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">:</tspan>
+      <tspan x="9.298682" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">=</tspan>
+      <tspan x="18.346875" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">4</tspan>
+      <tspan x="23.096875" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">0</tspan>
+      <tspan x="27.846875" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">0</tspan>
+      <tspan x="42.096875" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">¢</tspan>
+      <tspan x="55.964648" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">=</tspan>
+      <tspan x="65.012842" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">0</tspan>
+      <tspan x="72.392969" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">0</tspan>
+      <tspan x="77.142969" y="-0.203125" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">5</tspan>
+      <tspan x="32.596875" y="-0.203125" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">，</tspan>
+      <tspan x="81.892969" y="-0.203125" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c"> </tspan>
+      <tspan x="86.642969" y="-0.203125" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">m</tspan>
+      <tspan x="91.392969" y="-0.203125" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">m</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle" x="365.707317" y="46.955069" transform="rotate(-0 365.707317 46.955069)">时间推进</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="365.707317" y="62.542569" transform="rotate(-0 365.707317 62.542569)">Crank–Nicolson 格式</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="365.707317" y="77.304678" transform="rotate(-0 365.707317 77.304678)">二阶、无条件稳定</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="365.707317" y="91.992569" transform="rotate(-0 365.707317 91.992569)">每步 4 轮不动点迭代</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle" x="525.512195" y="61.680069" transform="rotate(-0 525.512195 61.680069)">到 1800 s？</text>
+   </g>
+   <g id="text_14">
+    <!-- $\Delta t=0.5$ s 逐步推进 -->
+    <g style="fill: #1c1c1c" transform="translate(482.287195 77.402647)">
+     <text>
+      <tspan x="0" y="-0.75" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">¢</tspan>
+      <tspan x="13.009619" y="-0.75" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">=</tspan>
+      <tspan x="22.057813" y="-0.75" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">0</tspan>
+      <tspan x="29.437939" y="-0.75" style="font-size: 9.5px; font-family: 'cmr10'; fill: #1c1c1c">5</tspan>
+      <tspan x="7.913574" y="-0.75" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">t</tspan>
+      <tspan x="26.807813" y="-0.75" style="font-size: 9.5px; font-family: 'cmmi10'; fill: #1c1c1c">:</tspan>
+      <tspan x="34.187939" y="-0.75" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c"> </tspan>
+      <tspan x="38.937939" y="-0.75" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">s</tspan>
+      <tspan x="43.687939" y="-0.75" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c"> </tspan>
+      <tspan x="48.437939" y="-0.75" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">逐</tspan>
+      <tspan x="57.937939" y="-0.75" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">步</tspan>
+      <tspan x="67.437939" y="-0.75" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">推</tspan>
+      <tspan x="76.937939" y="-0.75" style="font-size: 9.5px; font-family: 'SimSun'; fill: #1c1c1c">进</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle" x="685.317073" y="54.591006" transform="rotate(-0 685.317073 54.591006)">输出结果</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="685.317073" y="69.125772" transform="rotate(-0 685.317073 69.125772)">result1.xlsx</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="685.317073" y="84.630069" transform="rotate(-0 685.317073 84.630069)">表 1 温度、表 2 水分浓度</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1c1c1c" x="611.560976" y="59.624171" transform="rotate(-0 611.560976 59.624171)">是</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 9.5px; font-family: 'SimSun', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1c1c1c" x="535.346341" y="137.033213" transform="rotate(-0 535.346341 137.033213)">否</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcf379fe7f6">
+   <rect x="0" y="0" width="756" height="156.731707"/>
+  </clipPath>
+ </defs>
+</svg>

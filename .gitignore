@@ -1,0 +1,12 @@
+# Python 编译缓存与虚拟环境（.pyc 会内嵌源码绝对路径，含本机用户名）
+__pycache__/
+*.py[cod]
+.venv/
+
+# Office 临时/锁文件：Word/WPS 打开文档时生成，第 2–4 字节是本机用户名
+~$*
+
+# 系统垃圾
+.DS_Store
+Thumbs.db
+desktop.ini

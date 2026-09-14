@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;width:fit-content;height:fit-content;background:transparent}
+.fig,.fig *{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;box-sizing:border-box;font-style:normal!important}
+.fig{width:fit-content;padding:18px 20px;background:transparent;
+  --line:#000;--txt:#000;--ac:hsl(224,46%,42%);--acbg:hsl(224,42%,95%)}
+.row{display:flex;flex-direction:row;align-items:center}
+.n{background:#fff;border:1px solid var(--line);border-radius:0;padding:8px 11px;color:var(--txt);
+  text-align:center;display:flex;flex-direction:column;gap:2px;justify-content:center;min-width:0}
+.n .ttl{font-size:13px;font-weight:600;line-height:1.3}
+.n .sub{font-size:12px;font-weight:400;line-height:1.3;letter-spacing:.02em}
+/* 端点节点：直角方框 + 蓝色高亮 */
+.cap{background:var(--acbg);border:1.4px solid var(--ac);border-radius:0}
+.cap .ttl{color:var(--ac);font-weight:700}
+.focus{background:var(--acbg);border:1.4px solid var(--ac);border-radius:0}
+.focus .ttl{color:var(--ac);font-weight:700}
+.hline{flex:none;height:1.4px;background:var(--line)}
+.harw{flex:none;display:flex;align-items:center;width:22px}
+.harw .ln{flex:1;height:1.4px;background:var(--line)}
+.harw .tp{flex:none;width:0;height:0;border-left:7px solid var(--line);
+  border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+.stack{display:flex;flex-direction:column;gap:24px;flex:none}
+.cell{height:92px;display:flex;align-items:center}
+.cell .n{width:100%;height:100%}
+/* 分叉连接件：宽 32、高 2×92+24=208；两行中心 46 / 162，中线 104 */
+.brk{flex:none;position:relative;width:32px;height:208px}
+.brk i{position:absolute;display:block;background:var(--line)}
+.brk .mid{left:0;top:103.3px;width:15px;height:1.4px}
+.brk .spine{left:15px;top:46px;width:1.4px;height:116px}
+.brk .l1{left:15px;top:45.3px;width:11px;height:1.4px}
+.brk .l2{left:15px;top:161.3px;width:11px;height:1.4px}
+.brk .a1,.brk .a2{width:0;height:0;background:none;left:25px;
+  border-left:7px solid var(--line);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+.brk .a1{top:41.5px}
+.brk .a2{top:157.5px}
+</style></head>
+<body>
+<div class="fig" data-mh-palette="modern">
+  <div class="row">
+
+    <div class="n cap" style="width:118px;height:92px"><span class="ttl">读入题面条件</span><span class="sub">附件 1 环境量<br>附件 2 半径<br>附录 2/3/4 物性</span></div>
+
+    <div class="hline" style="width:20px"></div>
+
+    <div class="n focus" style="width:122px;height:92px"><span class="ttl">统一求解内核</span><span class="sub">守恒控制体积 + 向后 Euler·Picard</span></div>
+
+    <div class="hline" style="width:20px"></div>
+
+    <div class="brk"><i class="mid"></i><i class="spine"></i><i class="l1"></i><i class="l2"></i><i class="a1"></i><i class="a2"></i></div>
+
+    <div class="stack" style="width:124px">
+      <div class="cell"><div class="n"><span class="ttl">问题一</span><span class="sub">常物性、两场解耦<br>（附录 2）</span></div></div>
+      <div class="cell"><div class="n"><span class="ttl">问题二～四</span><span class="sub">变物性、双向耦合<br>（附录 3/4）</span></div></div>
+    </div>
+
+    <div class="stack">
+      <div class="cell"><div class="harw"><div class="ln"></div><div class="tp"></div></div></div>
+      <div class="cell"><div class="harw"><div class="ln"></div><div class="tp"></div></div></div>
+    </div>
+
+    <div class="stack" style="width:128px">
+      <div class="cell"><div class="n cap"><span class="ttl">表 1、表 2</span><span class="sub">30 min 温度与水分浓度</span></div></div>
+      <div class="cell"><div class="n cap"><span class="ttl">结果输出</span><span class="sub">问题二 3 h<br>问题三 57.27 h<br>问题四 51.04 h</span></div></div>
+    </div>
+
+  </div>
+</div>
+</body></html>
